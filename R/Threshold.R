@@ -168,8 +168,9 @@ Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qt
     }
   }
   if (length(dim(data)) > 1) {
-    result <- Apply(data = data, margins = margins, AtomicFun = .Threshold, indices = jdays, qtiles = qtiles, 
-                  ncores = ncores)
+    result <- Apply(data = data, margins = margins, 
+                    fun = .Threshold, indices = jdays, qtiles = qtiles, 
+                    ncores = ncores)
     names(dim(result$output1)) <- c("jdays", dim_names[-time_dim])
   } else {
     result <- list() 

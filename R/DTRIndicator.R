@@ -217,7 +217,7 @@ DTRIndicator <- function(tmax, tmin, ref, by.seasons = TRUE, dates = NULL, timed
   }
   dtr <- (tmax - tmin) 
   indicator = Apply(list(dtr, ref$dtr.ref), margins = list(margins_dtr, margins_ref), 
-                    AtomicFun = .DTRIndicator, date.factor = date.factor, 
+                    fun = .DTRIndicator, date.factor = date.factor, 
                     ref_seasons = ref$season, ncores = ncores)
   names(dim(indicator$output1)) <- c("year", "season", dim_names[c(-time_dim_dtr)])
 

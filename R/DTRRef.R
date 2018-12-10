@@ -197,7 +197,8 @@ DTRRef <- function(tmax, tmin, by.seasons = TRUE, dates = NULL, timedim = NULL, 
     levels(date.factor)[which(levels(date.factor) == "03" 
                               | levels(date.factor) == "04"|levels(date.factor) == "05")] <- "MAM"
   }
-  dtr.ref <- Apply(list(tmax,tmin), margins = list(margins, margins), AtomicFun = .DTRRef, date.factor = date.factor, 
+  dtr.ref <- Apply(list(tmax,tmin), margins = list(margins, margins), 
+                   fun = .DTRRef, date.factor = date.factor, 
                    na.rm = na.rm, ncores = ncores)
   indices <- levels(date.factor)
   dtr.ref = dtr.ref$output1

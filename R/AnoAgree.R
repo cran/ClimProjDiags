@@ -73,7 +73,9 @@ AnoAgree <- function(ano, membersdim, na.rm = TRUE, ncores = NULL) {
   }
     margins <- 1 : length(dim(ano))
     margins <- margins[-membersdim]
-    ano_agree <- Apply(data = list(ano), margins = list(margins), AtomicFun = .AnoAgree, na.rm = na.rm, 
+    ano_agree <- Apply(data = list(ano), margins = list(margins), 
+                       fun = .AnoAgree, 
+                       na.rm = na.rm, 
                        ncores = ncores)[[1]]
     if (!is.null(names(dim(ano))) & length(dim(ano)) > 0) {
       dim_names <- names(dim(ano))

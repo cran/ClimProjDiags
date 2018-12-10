@@ -210,12 +210,12 @@ Climdex <- function(data, metric, threshold = NULL, base.range = NULL, dates = N
     target_dims <- list('time', 'jdays')
   }
   if (length(dims) > 1) {
-    result <- Apply(data = data, AtomicFun = .Climdex,
+    result <- Apply(data = data, fun = .Climdex,
                     # margins = list(2, 1),
-                  target_dims = target_dims, 
-                  output_dims = 'year',
-                  dates = dates, date.factor = date.factor, metric = metric,
-                  jdays = jdays, base.range = base.range, ncores = ncores)
+                    target_dims = target_dims, 
+                    output_dims = 'year',
+                    dates = dates, date.factor = date.factor, metric = metric,
+                    jdays = jdays, base.range = base.range, ncores = ncores)
   } else {
     result <- list()
     result$output1 <- .Climdex(data = data[[1]], threshold = data[[2]], dates = dates, metric = metric, 

@@ -198,7 +198,8 @@ WaveDuration <- function(data, threshold, op = ">", spell.length = 6, by.seasons
                   c(1 : length(dim(threshold)))[-c(time_dim_threshold)])
   data <- list(data , threshold )
   if (length(dim_names) > 1) {
-    result <- Apply(data = data, margins = margins, AtomicFun = .WaveDuration, date.factor = date.factor, jdays = jdays,
+    result <- Apply(data = data, margins = margins, 
+                    fun = .WaveDuration, date.factor = date.factor, jdays = jdays,
                     op = op, spell.length = spell.length, ncores = ncores)
   } else {
     result <- list()

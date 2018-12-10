@@ -127,7 +127,7 @@ WeightedMean <- function(data, lon, lat, region = NULL, mask = NULL, londim = NU
   dlat <- c(dlat, dlat[1])
   dlat <- t(array(dlat, dim = c(nblat, nblon)))
   weight <- (dlon * dlat * cosphi) 
-  if ((is.null(mask) == FALSE) && (dim(data) != dim(mask))) {
+  if ((is.null(mask) == FALSE) && all(dim(data) != dim(mask))) {
     stop("The provided parameter 'mask' must have the same size as the parameter 'data'.")
   }
   if ((nblat == dim(data)[1]) && (nblon == dim(data)[2])) {
@@ -146,4 +146,4 @@ WeightedMean <- function(data, lon, lat, region = NULL, mask = NULL, londim = NU
   coeff <- sum(weight, na.rm = TRUE)
   mean <- sum(weight * data, na.rm = TRUE) / coeff
   output <- mean
-}
+} 

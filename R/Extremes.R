@@ -191,10 +191,12 @@ Extremes <- function(data, threshold, op = ">", min.length = 6, spells.can.span.
   data <- list(data, threshold)
   date.factor <- as.factor(substr(dates, 1, 4))
   if (length(dim_names) > 1) {  
-    exceedance <- Apply(data = data, target_dims = list(timedim, time_dim_threshold), AtomicFun = .Extremes,
-                      date.factor = date.factor, jdays = jdays, op = op, 
-                      min.length = min.length, spells.can.span.years = spells.can.span.years, 
-                      max.missing.days = max.missing.days, ncores = ncores)
+    exceedance <- Apply(data = data, target_dims = list(timedim, time_dim_threshold), 
+                        fun = .Extremes,
+                        date.factor = date.factor, jdays = jdays, op = op, 
+                        min.length = min.length, 
+                        spells.can.span.years = spells.can.span.years, 
+                        max.missing.days = max.missing.days, ncores = ncores)
     names(dim(exceedance$output1)) <- dim_names[-timedim]
     exceedance$year <- unique(as.numeric(as.vector(date.factor)))
   } else {

@@ -31,3 +31,4 @@ data_subset <- Subset(data, c('time', 'model'),
 dim(data_subset)
 
 }
+

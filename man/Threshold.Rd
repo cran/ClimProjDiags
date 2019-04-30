@@ -40,3 +40,4 @@ attr(data, 'Variables')$dat1$time <- time
 a <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL)
 str(a)
 }
+

@@ -60,3 +60,4 @@ a <- WeightedMean(data = data, lon = lon, lat = lat, region = NULL,
                  mask = NULL, londim = 1, latdim = 2)
 str(a)
 }
+

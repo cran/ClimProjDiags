@@ -58,3 +58,4 @@ a <- Extremes(data, threshold = threshold, op = ">", min.length = 6, spells.can.
              max.missing.days = 5, ncores = NULL)
 str(a)
 }
+

@@ -68,3 +68,4 @@ dim(tmin) <- c(2, 3, 365)
 a <- DTRRef(tmax, tmin, by.seasons = FALSE, dates = time,  timedim = 3, ncores = NULL)
 str(a)
 }
+

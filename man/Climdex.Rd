@@ -63,3 +63,4 @@ str(thres)
 clim <- Climdex(data, metric = "t90p", threshold = thres)
 str(clim)
 }
+

@@ -60,3 +60,4 @@ aa <- DTRIndicator(tmax, tmin, ref = a, by.seasons = FALSE, ncores = NULL)
 str(aa)
 dim(aa$indicator)
 }
+

@@ -48,3 +48,4 @@ threshold <- rep(40, 31)
 a <- WaveDuration(data, threshold, op = ">", spell.length = 6, by.seasons = TRUE, ncores = NULL)
 str(a)
 }
+

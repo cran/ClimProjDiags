@@ -146,4 +146,4 @@ WeightedMean <- function(data, lon, lat, region = NULL, mask = NULL, londim = NU
   coeff <- sum(weight, na.rm = TRUE)
   mean <- sum(weight * data, na.rm = TRUE) / coeff
   output <- mean
-} 
+}

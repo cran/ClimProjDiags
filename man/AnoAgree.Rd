@@ -34,3 +34,4 @@ a <- rnorm(6)
 agree <- AnoAgree(ano = a, membersdim = 1, na.rm = TRUE, ncores = NULL)
 print(agree)
 }
+

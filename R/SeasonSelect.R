@@ -44,7 +44,7 @@ SeasonSelect <- function(data, season, dates = NULL, timedim = NULL, calendar = 
     dim(data) = c(time = length(data))
     timedim = 1
   }
-  if (!is.character(season) | (season != "DJF" & season != "MMA" & season != "JJA" & season != "SON")) {
+  if (!is.character(season) | (season != "DJF" & season != "MAM" & season != "JJA" & season != "SON")) {
     stop("Parameter 'season' must be a character string indicating the season by the three months initials in capitals: 'DJF' for winter (summer), 'MAM' spring (autumn), 'JJA' for summer (winter) or 'SON' for autumn (spring) in the northern (southern) hemisphere.")
   }
   if (is.null(timedim)) {

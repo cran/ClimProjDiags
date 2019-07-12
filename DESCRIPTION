@@ -1,6 +1,6 @@
 Package: ClimProjDiags
 Title: Set of Tools to Compute Various Climate Indices
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(
     person("BSC-CNS", role = c("aut", "cph")),
     person("Alasdair", "Hunter", , "alasdair.hunter@bsc.es", role = "aut"),   
@@ -25,7 +25,7 @@ RoxygenNote: 5.0.0
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2019-04-30 08:35:08 UTC; nperez
+Packaged: 2019-07-12 13:21:39 UTC; nperez
 Author: BSC-CNS [aut, cph],
   Alasdair Hunter [aut],
   Nuria Perez-Zanon [aut, cre],
@@ -33,4 +33,4 @@ Author: BSC-CNS [aut, cph],
   Louis-Philippe Caron [ctb]
 Maintainer: Nuria Perez-Zanon <nuria.perez@bsc.es>
 Repository: CRAN
-Date/Publication: 2019-04-30 12:40:15 UTC
+Date/Publication: 2019-07-12 14:00:23 UTC

@@ -5,7 +5,7 @@
 \title{Daily thresholds based on quantiles for n-dimensional arrays}
 \usage{
 Threshold(data, dates = NULL, calendar = NULL, base.range = NULL,
-  qtiles = 0.9, ncores = NULL)
+  qtiles = 0.9, ncores = NULL, na.rm = FALSE)
 }
 \arguments{
 \item{data}{A numeric n-dimensional array containing daily data.}
@@ -19,6 +19,8 @@ Threshold(data, dates = NULL, calendar = NULL, base.range = NULL,
 \item{qtiles}{Numeric vector with values between 0 and 1 indicating the quantiles to be computed.}
 
 \item{ncores}{The number of cores to be used when computing the threshold.}
+
+\item{na.rm}{A logical value. If TRUE, any NA and NaN's are removed before the quantiles are computed (default as FALSE).}
 }
 \value{
 An array with similar dimensions as the \code{data} input, but without 'time' dimension, and a new 'jdays' dimension.

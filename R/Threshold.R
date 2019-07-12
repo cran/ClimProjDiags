@@ -8,6 +8,7 @@
 #'@param base.range The years used for computing the threshold.
 #'@param qtiles Numeric vector with values between 0 and 1 indicating the quantiles to be computed.
 #'@param ncores The number of cores to be used when computing the threshold.
+#'@param na.rm A logical value. If TRUE, any NA and NaN's are removed before the quantiles are computed (default as FALSE).
 #'
 #'@return An array with similar dimensions as the \code{data} input, but without 'time' dimension, and a new 'jdays' dimension.
 #'
@@ -29,7 +30,7 @@
 #'a <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL)
 #'str(a)
 #'@export
-Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL) {
+Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL, na.rm = FALSE) {
   if (is.null(data)) {
     stop("Parameter 'data' cannot be NULL.")
   }
@@ -92,6 +93,14 @@ Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qt
   }
   if (stop_error) {
     stop("Parameter 'dates' must be of the same length as the 'time' dimension of the parameter 'data'.")
+  }
+  if (!is.logical(na.rm)) {
+    stop("Parameter 'na.rm' must be logical.")
+  }
+  if (length(na.rm) > 1) {
+    na.rm <- na.rm[1]
+    warning("Parameter 'na.rm' has length > 1 and only the first ",
+            "element will be used.")
   }
   dates <- as.PCICt(dates, cal = calendar)
   dates = as.character(dates)
@@ -170,7 +179,7 @@ Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qt
   if (length(dim(data)) > 1) {
     result <- Apply(data = data, margins = margins, 
                     fun = .Threshold, indices = jdays, qtiles = qtiles, 
-                    ncores = ncores)
+                    ncores = ncores, na.rm = na.rm)
     names(dim(result$output1)) <- c("jdays", dim_names[-time_dim])
   } else {
     result <- list() 
@@ -179,6 +188,6 @@ Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qt
   }
   return(result$output1)
 }
-.Threshold <- function(data, indices,  qtiles) {
-  tapply(X = data, INDEX = indices, FUN = quantile, probs = qtiles)
+.Threshold <- function(data, indices,  qtiles, na.rm = FALSE) {
+  tapply(X = data, INDEX = indices, FUN = quantile, probs = qtiles, na.rm = na.rm)
 } 

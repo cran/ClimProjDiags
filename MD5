@@ -1,4 +1,4 @@
-90821d1b54b1bd534869df818e2811a0 *DESCRIPTION
+b4f2917595e8c18c335ff4c6add18745 *DESCRIPTION
 41b666e476e0259ebfe8e9dea4edeef5 *NAMESPACE
 b4aa345b0dc3e42a6a6af5c783bd436b *R/AnoAgree.R
 c3d5ffefb80b247d911a80f97e47f569 *R/Climdex.R
@@ -10,7 +10,7 @@ c5078b5421200541e36f722fec988c3c *R/DTRRef.R
 0e38d3a1abddc015b8b6921924fec156 *R/SeasonSelect.R
 eff148548524c129404d949a9077d829 *R/SelBox.R
 71ed71014c96143707195fc5bd6a3b49 *R/Subset.R
-ed337b18e7a419e1f9d118502468077f *R/Threshold.R
+e122ab68efd8bc929700501822564eb6 *R/Threshold.R
 7680e707db818a48ffbb2b893cee50ab *R/WaveDuration.R
 02469d1f6366e6953ba904fb7ffb84ed *R/WeightedMean.R
 5ff23ffc83ea3f90708e7f5d48e8234e *README.md
@@ -33,7 +33,7 @@ ef8d6e7bfdd172ead2c114c66b8bad13 *man/Extremes.Rd
 2ff93a72a24e0e34476949348791b7f9 *man/SeasonSelect.Rd
 3ac61bbe1c128e6dd495afe2eb48f862 *man/SelBox.Rd
 07606e3748698294e5f4261d8e589442 *man/Subset.Rd
-e3c730db8f32ca4e1c95df51d16a2c44 *man/Threshold.Rd
+eb1e207059ca9c04eba4edfecc336694 *man/Threshold.Rd
 d553a45b34689d79aafab9057cbb2f98 *man/WaveDuration.Rd
 0b0d31d354144f34d98995aaad9c5908 *man/WeightedMean.Rd
 b76b0d195a5de1835027efbf7da290a5 *vignettes/Figures/CombinedIndices.png

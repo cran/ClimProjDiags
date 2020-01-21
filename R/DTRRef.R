@@ -99,12 +99,12 @@ DTRRef <- function(tmax, tmin, by.seasons = TRUE, dates = NULL, timedim = NULL, 
     dim_names <- names(dim(tmax))
   }
   if (is.null(dates)) {
-    dates.max <- attr(tmax, 'Variables')$common$time
-    if (is.null(dates.max)) {
+    dates.tmax <- attr(tmax, 'Variables')$common$time
+    if (is.null(dates.tmax)) {
       dates.tmax <- attr(tmax, 'Variables')$dat1$time
     }
-    dates.min <- attr(tmin, 'Variables')$common$time
-    if (is.null(dates.min)) {
+    dates.tmin <- attr(tmin, 'Variables')$common$time
+    if (is.null(dates.tmin)) {
         dates.tmin <- attr(tmin, 'Variables')$dat1$time
     }
     if (length(dates.tmax) != length(dates.tmin)) {

@@ -83,11 +83,13 @@ SelBox <- function(data, lon, lat, region, londim = NULL, latdim = NULL, mask = 
   } else {
     LatIdx <- which(lat <= region[3] | lat >= region[4])
   }
-  if (region[1] <= region[2]) {
-    LonIdx <- which(lon >= region[1] & lon <= region[2])
-  } else {
-    LonIdx <- which(lon >= region[1] | lon <= region[2])
-  }
+  #if (region[1] <= region[2]) {
+  #  LonIdx <- which(lon >= region[1] & lon <= region[2])
+  #} else {
+  #  LonIdx <- which(lon >= region[1] | lon <= region[2])
+  #}
+  LonIdx <- Lon2Index(lon, lonmin = region[1], lonmax = region[2])
+
   data <- Subset(data, along = londim, indices = LonIdx, drop = "none")
   data <- Subset(data, along = latdim, indices = LatIdx, drop = "none")
   if (!is.null(mask)) {

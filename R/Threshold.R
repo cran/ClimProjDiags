@@ -13,7 +13,6 @@
 #'@return An array with similar dimensions as the \code{data} input, but without 'time' dimension, and a new 'jdays' dimension.
 #'
 #'@import multiApply
-#'@import climdex.pcic
 #'@import PCICt
 #'@importFrom stats quantile
 #'@examples

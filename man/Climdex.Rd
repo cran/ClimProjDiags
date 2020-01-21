@@ -63,4 +63,9 @@ str(thres)
 clim <- Climdex(data, metric = "t90p", threshold = thres)
 str(clim)
 }
+\references{
+David Bronaugh for the Pacific Climate Impacts Consortium (2015).
+ climdex.pcic: PCIC Implementation of Climdex Routines. R package
+ version 1.1-6. http://CRAN.R-project.org/package=climdex.pcic
+}
 

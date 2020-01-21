@@ -21,7 +21,6 @@
 #'@details This routine compares data to the thresholds using the given operator, generating a series of TRUE or FALSE values; these values are then filtered to remove any sequences of less than \code{min.length} days of TRUE values. It then computes the lengths of the remaining sequences of TRUE values (spells) and sums their lengths. The \code{spells.can.spa .years} option controls whether spells must always terminate at the end of a period, or whether they may continue until the criteria ceases to be met or the end of the data is reached. The default for fclimdex is FALSE.
 #'
 #'@import multiApply
-#'@import climdex.pcic
 #'@import PCICt
 #'@examples
 #'##Example synthetic data:
@@ -212,7 +211,8 @@ Extremes <- function(data, threshold, op = ">", min.length = 6, spells.can.span.
 }
 .Extremes <- function(data, threshold, date.factor, jdays, op, min.length, spells.can.span.years,
                       max.missing.days) {
-  result <- threshold.exceedance.duration.index(data, date.factor, jdays, 
+  result <- .threshold.exceedance.duration.index(data, date.factor, jdays, 
                                                 threshold,op, min.length, 
                                                 spells.can.span.years, max.missing.days)
 }
+

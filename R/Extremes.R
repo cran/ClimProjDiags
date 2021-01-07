@@ -22,6 +22,7 @@
 #'
 #'@import multiApply
 #'@import PCICt
+#'@import climdex.pcic
 #'@examples
 #'##Example synthetic data:
 #'data <- 1:(2 * 3 * 372 * 1)
@@ -211,7 +212,7 @@ Extremes <- function(data, threshold, op = ">", min.length = 6, spells.can.span.
 }
 .Extremes <- function(data, threshold, date.factor, jdays, op, min.length, spells.can.span.years,
                       max.missing.days) {
-  result <- .threshold.exceedance.duration.index(data, date.factor, jdays, 
+  result <- threshold.exceedance.duration.index(data, date.factor, jdays, 
                                                 threshold,op, min.length, 
                                                 spells.can.span.years, max.missing.days)
 }

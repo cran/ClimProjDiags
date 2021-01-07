@@ -18,6 +18,7 @@
 #'
 #'@import multiApply   
 #'@import PCICt
+#'@import climdex.pcic
 #'@examples
 #'##Example synthetic data:
 #'data <- 1:(2 * 3 * 31 * 5)
@@ -223,130 +224,11 @@ WaveDuration <- function(data, threshold, op = ">", spell.length = 6, by.seasons
 }
 .WaveDuration <- function(data, threshold, date.factor = date.factor,
                           jdays = jdays,  op = op, spell.length = spell.length) {
-  result <- .threshold.exceedance.duration.index(daily.temp = data, 
+  result <- threshold.exceedance.duration.index(daily.temp = data, 
                                                 date.factor = date.factor, jdays = jdays,
                                                 thresholds = threshold,
                                                 op = op, min.length = spell.length, 
                                                 spells.can.span.years = TRUE, 1)
   return(result)
-}
-#' @title Sum of spell lengths exceeding daily threshold
-#' 
-#' @description
-#' This function returns the number of spells of more than \code{min.length}
-#' days which exceed or are below the given threshold.
-#' 
-#' @details
-#' This routine compares data to the thresholds using the given operator,
-#' generating a series of TRUE or FALSE values; these values are then filtered
-#' to remove any sequences of less than \code{min.length} days of TRUE values.
-#' It then computes the lengths of the remaining sequences of TRUE values
-#' (spells) and sums their lengths.
-#' 
-#' The \code{spells.can.span.years} option controls whether spells must always
-#' terminate at the end of a period, or whether they may continue until the
-#' criteria ceases to be met or the end of the data is reached. The default for
-#' fclimdex is FALSE.
-#' 
-#' @param daily.temp Data to compute index on.
-#' @param date.factor Date factor to split by.
-#' @param jdays Timeseries of days of year.
-#' @param thresholds The thresholds to compare to.
-#' @param op The operator to use to compare data to threshold.
-#' @param min.length The minimum spell length to be considered.
-#' @param spells.can.span.years Whether spells can span years.
-#' @param max.missing.days Maximum number of NA values per time period.
-#' @return A timeseries of maximum spell lengths for each period.
-#' @seealso \code{\link{climdex.wsdi}}.
-#' @keywords ts climate
-#' @examples
-#' 
-#' prec.dat <- c(0.1, 3.0, 4.3, 1.9, 1.3, 6.0, 0, 0, 4.0, 1)
-#' phony.date.factor <- factor(rep(1:2, each=5))
-#' 
-#' ## With spells spanning years...
-#' alttedi <- threshold.exceedance.duration.index(prec.dat,
-#' phony.date.factor, rep(1:5, 2), rep(1, 5), ">=", 2, TRUE, 1)
-#' 
-#' ## Without spells spanning years...
-#' tedi <- threshold.exceedance.duration.index(prec.dat, phony.date.factor,
-#' rep(1:5, 2), rep(1, 5), ">=", 2, FALSE, 1)
-#' 
-#' @noRd
-.threshold.exceedance.duration.index <- function(daily.temp, date.factor, jdays, thresholds, op=">", min.length=6, spells.can.span.years=TRUE, max.missing.days) {
-  stopifnot(is.numeric(c(daily.temp, thresholds, min.length)), is.factor(date.factor),
-            is.function(match.fun(op)),
-            min.length > 0)
-  f <- match.fun(op)
-  na.mask <- .get.na.mask(is.na(daily.temp + thresholds[jdays]), date.factor, max.missing.days)
-
-  if(spells.can.span.years) {
-    periods <- .select.blocks.gt.length(f(daily.temp, thresholds[jdays]), min.length - 1)
-    return(.tapply.fast(periods, date.factor, sum) * na.mask)
-  } else {
-    ## fclimdex behaviour...
-    return(.tapply.fast(1:length(daily.temp), date.factor, function(idx) { sum(.select.blocks.gt.length(f(daily.temp[idx], thresholds[jdays[idx]]), min.length - 1)) } ) * na.mask)
-  }
-}
-## Get NA mask given threshold and split factor
-.get.na.mask <- function(x, f, threshold) {
-  return(c(1, NA)[1 + as.numeric(.tapply.fast(is.na(x), f, function(y) { return(sum(y) > threshold) } ))])
-}
-#' Select blocks of TRUE values of sufficient length.
-#' 
-#' Produces a sequence of booleans of the same length as input, with sequences
-#' of TRUE values shorter than n replaced with FALSE.
-#' 
-#' This function takes a series of booleans and returns a sequence of booleans
-#' of equal length, with all sequences of TRUE of length \code{n} or shorter
-#' replaced with sequences of FALSE. NA values are replaced with
-#' \code{na.value}.
-#' 
-#' @param d Sequence of booleans.
-#' @param n Longest sequence of TRUE to replace with FALSE.
-#' @param na.value Values to replace NAs with.
-#' @return A vector of booleans, with the length \code{n} or less sequences of
-#' TRUE replaced with FALSE.
-#' @keywords ts climate
-#' @examples
-#' 
-#' ## Return only the first sequence of TRUE... second sequence will be FALSE.
-#' foo <- select.blocks.gt.length(c(rep(TRUE, 4), FALSE, rep(TRUE, 3)), 3)
-#' 
-#' @noRd
-.select.blocks.gt.length <- function(d, n, na.value=FALSE) {
-  stopifnot(is.logical(d), is.numeric(n))
-
-  if(n < 1)
-    return(d)
-
-  if(n >= length(d))
-    return(rep(FALSE, length(d)))
-
-  d[is.na(d)] <- na.value
-  
-  d2 <- Reduce(function(x, y) { return(c(rep(FALSE, y), d[1:(length(d) - y)]) & x) }, 1:n, d)
-  return(Reduce(function(x, y) { return(c(d2[(y + 1):length(d2)], rep(FALSE, y)) | x) }, 1:n, d2))
-}
-## Lower overhead version of tapply
-.tapply.fast <- function (X, INDEX, FUN = NULL, ..., simplify = TRUE) {
-  FUN <- if (!is.null(FUN))
-    match.fun(FUN)
-  
-  if(!is.factor(INDEX))
-    stop("INDEX must be a factor.")
-  
-  if (length(INDEX) != length(X))
-    stop("arguments must have same length")
-  
-  if (is.null(FUN))
-    return(INDEX)
-  
-  namelist <- levels(INDEX)
-  ans <- lapply(split(X, INDEX), FUN, ...)
-  
-  ans <- unlist(ans, recursive = FALSE)
-  names(ans) <- levels(INDEX)
-  return(ans)
 }
 

@@ -103,9 +103,13 @@ WeightedMean <- function(data, lon, lat, region = NULL, mask = NULL, londim = NU
       mask <- aux$mask
     }
   }
-  wtmean <- aaply(data, .margins = dims[c(-londim, -latdim)], 
-                        .fun = .WeightedMean, lon, lat, mask, .drop = FALSE)
-  dim(wtmean) <- dim(data)[-c(latdim,londim)]
+  if (length(dim(data)) > 2) {
+    wtmean <- aaply(data, .margins = dims[c(-londim, -latdim)], 
+                          .fun = .WeightedMean, lon, lat, mask, .drop = FALSE)
+    dim(wtmean) <- dim(data)[-c(latdim,londim)]
+  } else {
+    wtmean <- .WeightedMean(data, lon = lon, lat = lat, mask = mask)
+  }
   if(length(dim(data)) > 3) {
     if (is.null(dim_names)) {
       dim_names <- paste0("dim", 1:length(dim(data)))

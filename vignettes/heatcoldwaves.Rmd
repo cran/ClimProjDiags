@@ -32,7 +32,7 @@ All the other R packages involved can be installed directly from CRAN and loaded
 
 ```r
 library(abind)
-library(s2dverification)
+library(s2dv)
 library(parallel)
 ```
 
@@ -68,9 +68,10 @@ for (j in 1 : 8) {
   gridnew <- apply(gridlon, 2, function(x) {x - rnorm(10958, mean = j * 0.5, sd = 3)})
   tmax_historical <- abind(tmax_historical, gridnew, along = 3)
 }
-tmax_historical <- InsertDim(InsertDim(tmax_historical, posdim = 1, lendim = 1),
-                             posdim = 1, lendim = 1)
-names(dim(tmax_historical)) <- c("model", "var", "time", "lon", "lat")
+names(dim(tmax_historical)) <- c("time", "lon", "lat")
+tmax_historical <- InsertDim(InsertDim(tmax_historical, posdim = 1, 
+                             lendim = 1, name = "var"),
+                             posdim = 1, lendim = 1, name = "model")
 time <- seq(ISOdate(1971, 1, 1), ISOdate(2000, 12, 31), "day")
 metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
                              calendar = 'proleptic_gregorian',
@@ -97,9 +98,10 @@ for (j in 1 : 8) {
                                                       sd = 3)})
   tmax_projection <- abind(tmax_projection, gridnew, along = 3)
 }
-tmax_projection <- InsertDim(InsertDim(tmax_projection, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-names(dim(tmax_projection)) <- c("model", "var", "time", "lon", "lat")
+names(dim(tmax_projection)) <- c("time", "lon", "lat")
+tmax_projection <- InsertDim(InsertDim(tmax_projection, posdim = 1, 
+                                       lendim = 1, name = "var"), 
+                             posdim = 1, lendim = 1, name = "model")
 time <- seq(ISOdate(2006, 1, 1), ISOdate(2100, 12, 31), "day")
 metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
                              calendar = 'proleptic_gregorian',

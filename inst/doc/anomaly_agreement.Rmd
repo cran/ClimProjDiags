@@ -32,7 +32,7 @@ All the other R packages involved can be installed directly from CRAN and loaded
 
 ```r
 library(abind)
-library(s2dverification)
+library(s2dv)
 library(ggplot2)
 ```
 
@@ -170,18 +170,18 @@ model  time   lon   lat
     4    90    12     8 
 ```
 
-+ Now, the mean climatology value for each grid point and model can be computed by using the `Mean1Dim()` function belonging to the **s2dverification package**. The position of the temporal dimension should be specified in parameter `posdim`.
++ Now, the mean climatology value for each grid point and model can be computed by using the `MeanDims()` function belonging to the **s2dv package**. The position of the temporal dimension should be specified in parameter `posdim`.
 
 ```r
-climatology <- Mean1Dim(summer_historical$data, posdim = 2) 
+climatology <- MeanDims(summer_historical$data, dims = 'time') 
 ```
 
 
-+ `Season()` function from **s2dverification package** returns the mean annual time series for the selected season by defining the parameters of the initial month of the data (`monini = 1`), the first month of the season (`moninf = 6`) and the final month of the season (`monsup = 8`). The last two parameters, `moninf` and `monsup`, have their origin with respect to the first one `monini`. 
++ `Season()` function from **s2dv package** returns the mean annual time series for the selected season by defining the parameters of the initial month of the data (`monini = 1`), the first month of the season (`moninf = 6`) and the final month of the season (`monsup = 8`). The last two parameters, `moninf` and `monsup`, have their origin with respect to the first one `monini`. 
 
 
 ```r
-summer_projection <- Season(multimodel_projection, posdim = 3, 
+summer_projection <- Season(multimodel_projection, time_dim = 'time', 
                             monini = 1, moninf = 6, monsup = 8)
 ```
 
@@ -192,15 +192,17 @@ By running the next lines, it is possible to check the dimensions of the data:
 model   lon   lat 
     4    12     8 
 > dim(summer_projection)
-model   var  time   lon   lat 
-    4     1   95    12     8 
+ time model   var   lon   lat 
+   95     4     1    12     8 
 ```    
 
 + A new dimension will be added by running the function `InsertDim()` in order to obtain the same dimensions as the projections data. `InsertDim()` repeats the original data the required number of times (21 years of future simulations) in the adequated position (the temporal dimension in the summer_projection data is in the third position). 
 
 ```r
-climatology <- InsertDim(InsertDim(climatology, posdim = 2, lendim = 1), 
-                         posdim = 3, lendim = 95)
+climatology <- InsertDim(
+                 InsertDim(
+                   climatology, posdim = 2, lendim = 1, name = 'var'), 
+                 posdim = 1, lendim = 95, name = 'time')
 ```                          
 
 + The anomaly for each model is obtained by simply subtracting.
@@ -214,7 +216,7 @@ anomaly <- summer_projection - climatology
 In order to obtain a spatial visualitzation, the temporal mean is computed. So, the time average anomalies for all models is saved in the `average` object. `AnoAgree()` function from **ClimProjDiags package** calculates the percentages of models which agrees with a positive or negative mean in each grid point. 
 
 ```r
-average <- Mean1Dim(anomaly,  which(names(dim(anomaly)) == "time"))
+average <- MeanDims(anomaly, dims = "time")
 agreement <- AnoAgree(average, membersdim = which(names(dim(average)) == "model"))
 ```
 
@@ -227,7 +229,7 @@ agreement_threshold <- 80
 colorbar_lim <- ceiling(max(abs(max(average)), abs(min(average))))
 brks <- seq(-colorbar_lim, colorbar_lim, length.out = 11)
              
-PlotEquiMap(drop(Mean1Dim(average, which(names(dim(average)) == "model"))), 
+PlotEquiMap(drop(MeanDims(average, dims = "model")), 
             lat = lat, lon = lon, units = "K", brks = brks, 
             toptitle = paste(var, "- climatology:", start_climatology, "to", 
                              end_climatology, "and future simulation:", 
@@ -243,17 +245,17 @@ PlotEquiMap(drop(Mean1Dim(average, which(names(dim(average)) == "model"))),
 
 ### 5- Multi-model agreement temporal visualization
 
-To visualize the time evolution of multi-model agreement, the spatial average is performed by a grid pixel size using the `WeightedMean` function from the **ClimProjDiags package**. Also, a smooth filter is applied with the `Smoothing()` function from the **s2dverifiction package**. In this example, a 5-year moving window filter is applied by defining the parameter `runmeanlen = 5`.
+To visualize the time evolution of multi-model agreement, the spatial average is performed by a grid pixel size using the `WeightedMean` function from the **ClimProjDiags package**. Also, a smooth filter is applied with the `Smoothing()` function from the **s2dv package**. In this example, a 5-year moving window filter is applied by defining the parameter `runmeanlen = 5`.
 
 ```r
 temporal <- drop(WeightedMean(anomaly, lon = lon, lat = lat, mask = NULL))
-temporal <- Smoothing(temporal, runmeanlen = 5, numdimt = 2)
+temporal <- Smoothing(temporal, time_dim = 'time', runmeanlen = 5)
 ```
 
 Before visualizing, a data frame with the proper format is created. 
 
 ```r
-data_frame <- as.data.frame.table(t(temporal))
+data_frame <- as.data.frame.table(temporal)
 years <- rep(start_projection : end_projection, 4)
 data_frame$Year <- c(years)
 names(data_frame)[2] <- "Model"

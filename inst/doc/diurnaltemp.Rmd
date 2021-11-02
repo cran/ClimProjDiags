@@ -32,7 +32,7 @@ library(ClimProjDiags)
 All the other R packages involved can be installed directly from CRAN and loaded as follows:
 
 ```r
-library(s2dverification)
+library(s2dv)
 library(abind)
 library(parallel)
 ```
@@ -78,12 +78,16 @@ for (j in 1 : 8) {
   tmin_historical <- abind(tmin_historical, gridnew2, along = 3)
 }
 
-tmax_historical <- InsertDim(InsertDim(tmax_historical, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-tmin_historical <- InsertDim(InsertDim(tmin_historical, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-names(dim(tmax_historical)) <- c("model", "var", "time", "lon", "lat")
-names(dim(tmin_historical)) <- c("model", "var", "time", "lon", "lat")
+names(dim(tmax_historical)) <- c('time', 'lon', 'lat')
+names(dim(tmin_historical)) <- c('time', 'lon', 'lat')
+
+tmax_historical <- InsertDim(InsertDim(tmax_historical, posdim = 1, 
+                                       lendim = 1, name = 'var'), 
+                             posdim = 1, lendim = 1, name = 'model')
+tmin_historical <- InsertDim(InsertDim(tmin_historical, posdim = 1, 
+                                       lendim = 1, name = 'var'), 
+                             posdim = 1, lendim = 1, name = 'model')
+
 time <- seq(ISOdate(1971, 1, 1), ISOdate(2000, 12, 31), "day")
 metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
                              calendar = 'proleptic_gregorian',
@@ -125,12 +129,16 @@ for (j in 1 : 8) {
   tmin_projection <- abind(tmin_projection, gridnew2, along = 3)
 }
 
-tmax_projection <- InsertDim(InsertDim(tmax_projection, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-tmin_projection <- InsertDim(InsertDim(tmin_projection, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-names(dim(tmax_projection)) <- c("model", "var", "time", "lon", "lat")
-names(dim(tmin_projection)) <- c("model", "var", "time", "lon", "lat")
+names(dim(tmax_projection)) <- c("time", "lon", "lat")
+names(dim(tmin_projection)) <- c("time", "lon", "lat")
+
+tmax_projection <- InsertDim(InsertDim(tmax_projection, posdim = 1, 
+                                       lendim = 1, name = 'var'), 
+                             posdim = 1, lendim = 1, name = 'model')
+tmin_projection <- InsertDim(InsertDim(tmin_projection, posdim = 1, 
+                                       lendim = 1, name = 'var'), 
+                             posdim = 1, lendim = 1, name = 'model')
+
 time <- seq(ISOdate(2006, 1, 1), ISOdate(2100, 12, 31), "day")
 metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
                              calendar = 'proleptic_gregorian',
@@ -193,7 +201,7 @@ A four panel plot can be generated to visualize the seasonal indicator by runnin
 ```r
 dtr_rcp <- array(dim = c(length(lon), length(lat), 4))             
 for (j in 1:4){
-              dtr_rcp[,,j] <- Mean1Dim(dtr_indicator$indicator[,j,,,,], 1)
+              dtr_rcp[,,j] <- MeanDims(dtr_indicator$indicator[,j,,,,], 'year')
 }            
 breaks <- 0 : (max(dtr_rcp) + 1)         
 
@@ -224,10 +232,10 @@ dtr_indicator_reference <- DTRIndicator(tmax = tmax_historical,
 The comparison between the reference and the future projection diurnal temperature variation indicator can be computed With a simple subtraction. To visualize the result, `PlotLayout` function will be applied again. The resulting plot will be saved in the working directory.
 
 ```r
-dtr_diff <- array(dim=c(length(lat), length(lon), 4))
+dtr_diff <- array(dim = c(length(lat), length(lon), 4))
 for (i in 1:4){
-  dtr_diff[,,i] <- Mean1Dim(dtr_indicator$indicator[,i,1,1,,], 1) - 
-                   Mean1Dim(dtr_indicator_reference$indicator[,i,1,1,,], 1)
+  dtr_diff[,,i] <- MeanDims(dtr_indicator$indicator[, i, 1, 1, , ], 'year') - 
+                   MeanDims(dtr_indicator_reference$indicator[, i, 1, 1, , ], 'year')
 }
 
 PlotLayout(PlotEquiMap, c(1, 2), lon = lon, lat = lat, var = dtr_diff,

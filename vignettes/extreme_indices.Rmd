@@ -39,7 +39,7 @@ All the other R packages involved can be installed directly from CRAN and loaded
 
 
 ```r
-library(s2dverification)
+library(s2dv)
 library(abind)
 library(multiApply)
 library(ggplot2)
@@ -71,9 +71,11 @@ for (j in 1 : 8) {
   gridnew <- apply(gridlon, 2, function(x) {x - rnorm(10958, mean = j * 0.5, sd = 3)})
   tmax_historical <- abind(tmax_historical, gridnew, along = 3)
 }
-tmax_historical <- InsertDim(InsertDim(tmax_historical, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-names(dim(tmax_historical)) <- c("model", "var", "time", "lon", "lat")
+names(dim(tmax_historical)) <- c("time", "lon", "lat")
+
+tmax_historical <- InsertDim(InsertDim(tmax_historical, posdim = 1, 
+                                       lendim = 1, name = 'var'), 
+                             posdim = 1, lendim = 1, name = 'model')
 time <- seq(ISOdate(1971, 1, 1), ISOdate(2000, 12, 31), "day")
 metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
                              calendar = 'proleptic_gregorian',
@@ -102,8 +104,10 @@ for (j in 1 : 8) {
                                rnorm(34698, mean = j * 0.5, sd = 3)})
   tmax_projection <- abind(tmax_projection, gridnew, along = 3)
 }
-tmax_projection <- InsertDim(InsertDim(tmax_projection, posdim = 1, lendim = 1), posdim = 1, lendim = 1)
-names(dim(tmax_projection)) <- c("model", "var", "time", "lon", "lat")
+names(dim(tmax_projection)) <- c("time", "lon", "lat")
+tmax_projection <- InsertDim(InsertDim(tmax_projection, posdim = 1, 
+                                       lendim = 1, name = 'var'), 
+                             posdim = 1, lendim = 1, name = 'model')
 time <- seq(ISOdate(2006, 1, 1), ISOdate(2100, 12, 31), "day")
 metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
                              calendar = 'proleptic_gregorian',
@@ -159,12 +163,12 @@ names(dim(anomaly_data))[1] <- "time"
 ```
 
 
-This data can be detrended by applying the `Trend` function from **s2dverification package**. In order to remove the trend from the `tmax_historical`, the correction is calculated by subtracting the `detrended_data` to the `anomaly_data`.
+This data can be detrended by applying the `Trend` function from **s2dv package**. In order to remove the trend from the `tmax_historical`, the correction is calculated by subtracting the `detrended_data` to the `anomaly_data`.
  
 
 ```r
-detrended_data <- Trend(anomaly_data, 
-                        posTR = which(names(dim(anomaly_data)) == "time"))
+detrended_data <- Trend(anomaly_data, time_dim = "time")
+                        
 diff <- anomaly_data - detrended_data$detrended
 diff <- aperm(diff, c(2,3,1,4,5))
 detrended_data <- tmax_historical - diff
@@ -247,8 +251,7 @@ masc <- rep(0, 8 * 12)
 masc[c(5 : 12, 18 : 24, 31 : 34, 43, 44, 47, 56 : 60, 67 : 72, 79, 
        82 : 84, 93 : 96)] <- 1
 dim(masc) <- c(12, 8)
-PlotEquiMap(Mean1Dim(HeatExtremeIndex, 
-                     which(names(dim(HeatExtremeIndex)) == "year")), 
+PlotEquiMap(MeanDims(HeatExtremeIndex, "year"),
                      lon = lon, lat = lat, filled.continents = FALSE, 
                      toptitle = "Extreme Heat Index", dots = masc,
                      fileout = "SpatialExtremeHeatIndex.png")
@@ -263,7 +266,7 @@ The inland average of the Extreme Heat Index can be computed to plot its time ev
 
 ```r
 temporal <- WeightedMean(HeatExtremeIndex, lon = lon, lat = lat, mask = drop(masc))
-temporal_3ysmooth <- Smoothing(temporal, runmeanlen = 3, numdimt = 1)
+temporal_3ysmooth <- Smoothing(temporal, runmeanlen = 3, time_dim = 'year')
 ```
 
 
@@ -335,8 +338,7 @@ Spatial representation of the Extreme Drought Index:
 
 
 ```r
-PlotEquiMap(Mean1Dim(DroughtExtremeIndex, 
-                     which(names(dim(DroughtExtremeIndex)) == "year")), 
+PlotEquiMap(MeanDims(DroughtExtremeIndex, "year"),
             lon = lon, lat = lat, filled.continents = FALSE, 
             toptitle = "Drought Index", brks = seq(-1, 1, 0.01), 
             fileout = "SpatialDroughtIndex.png")
@@ -352,7 +354,7 @@ Evolution of inland average of the Extreme Drought Index:
 ```r
 temporal <- WeightedMean(DroughtExtremeIndex, lon = lon, lat = lat, 
                          mask = drop(masc))
-temporal_5ysmooth <- Smoothing(temporal, runmeanlen = 5, numdimt = 1)
+temporal_5ysmooth <- Smoothing(temporal, runmeanlen = 5, time_dim = "year")
 png("Temporal_Inland_ExtremeDroughtIndex.png", width = 8, height = 5, units= 'in', 
     res = 100,  type = "cairo")
 plot(2006: 2100, temporal, type = "l", lty = 5, lwd = 2, bty = 'n', 
@@ -402,9 +404,8 @@ Spatial representation of the Extreme Flooding Index:
 
 
 ```r
-PlotEquiMap(Mean1Dim(FloodingExtremeIndex, 
-            which(names(dim(FloodingExtremeIndex)) == "year")), lon = lon, 
-            lat = lat, filled.continents = FALSE, 
+PlotEquiMap(MeanDims(FloodingExtremeIndex, "year"),
+            lon = lon, lat = lat, filled.continents = FALSE, 
             toptitle = "Extreme Flooding Index", 
             brks = seq(-1, 1, 0.1), fileout = "SpatialFloodingIndex.png")
 ```
@@ -419,7 +420,7 @@ PlotEquiMap(Mean1Dim(FloodingExtremeIndex,
 ```r
 temporal <- WeightedMean(FloodingExtremeIndex, lon = lon, lat = lat, 
                          mask = drop(masc))
-temporal_3ysmooth <- Smoothing(temporal, runmeanlen = 3, numdimt = 1)
+temporal_3ysmooth <- Smoothing(temporal, runmeanlen = 3, time_dim = "year")
 png("Temporal_Inland_ExtremeFloodingIndex.png", width = 8, height = 5, 
     units= 'in', res = 100, type = "cairo")
 plot(2006 :  2100, temporal, type = "l", lty = 5, lwd = 2, bty = 'n', 
@@ -460,7 +461,7 @@ A spatial visualization can be performed by executing:
 
 
 ```r
-PlotEquiMap(Mean1Dim(aci, which(names(dim(aci)) == "year")), lon = lon, 
+PlotEquiMap(MeanDims(aci, "year"), lon = lon, 
             lat = lat,  filled.continents = FALSE, toptitle = "Indices Combination",
             fileout = "CombinedIndices.png")
 ```

@@ -223,7 +223,7 @@ hr {
 <p>All the other R packages involved can be installed directly from CRAN and loaded as follows:</p>
 
 <pre><code class="r">library(abind)
-library(s2dverification)
+library(s2dv)
 library(parallel)
 </code></pre>
 
@@ -256,9 +256,10 @@ for (j in 1 : 8) {
   gridnew &lt;- apply(gridlon, 2, function(x) {x - rnorm(10958, mean = j * 0.5, sd = 3)})
   tmax_historical &lt;- abind(tmax_historical, gridnew, along = 3)
 }
-tmax_historical &lt;- InsertDim(InsertDim(tmax_historical, posdim = 1, lendim = 1),
-                             posdim = 1, lendim = 1)
-names(dim(tmax_historical)) &lt;- c(&quot;model&quot;, &quot;var&quot;, &quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+names(dim(tmax_historical)) &lt;- c(&quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+tmax_historical &lt;- InsertDim(InsertDim(tmax_historical, posdim = 1, 
+                             lendim = 1, name = &quot;var&quot;),
+                             posdim = 1, lendim = 1, name = &quot;model&quot;)
 time &lt;- seq(ISOdate(1971, 1, 1), ISOdate(2000, 12, 31), &quot;day&quot;)
 metadata &lt;- list(time = list(standard_name = &#39;time&#39;, long_name = &#39;time&#39;, 
                              calendar = &#39;proleptic_gregorian&#39;,
@@ -284,9 +285,10 @@ for (j in 1 : 8) {
                                                       sd = 3)})
   tmax_projection &lt;- abind(tmax_projection, gridnew, along = 3)
 }
-tmax_projection &lt;- InsertDim(InsertDim(tmax_projection, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-names(dim(tmax_projection)) &lt;- c(&quot;model&quot;, &quot;var&quot;, &quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+names(dim(tmax_projection)) &lt;- c(&quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+tmax_projection &lt;- InsertDim(InsertDim(tmax_projection, posdim = 1, 
+                                       lendim = 1, name = &quot;var&quot;), 
+                             posdim = 1, lendim = 1, name = &quot;model&quot;)
 time &lt;- seq(ISOdate(2006, 1, 1), ISOdate(2100, 12, 31), &quot;day&quot;)
 metadata &lt;- list(time = list(standard_name = &#39;time&#39;, long_name = &#39;time&#39;, 
                              calendar = &#39;proleptic_gregorian&#39;,

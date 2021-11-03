@@ -222,7 +222,7 @@ hr {
 
 <p>All the other R packages involved can be installed directly from CRAN and loaded as follows:</p>
 
-<pre><code class="r">library(s2dverification)
+<pre><code class="r">library(s2dv)
 library(abind)
 library(parallel)
 </code></pre>
@@ -265,12 +265,16 @@ for (j in 1 : 8) {
   tmin_historical &lt;- abind(tmin_historical, gridnew2, along = 3)
 }
 
-tmax_historical &lt;- InsertDim(InsertDim(tmax_historical, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-tmin_historical &lt;- InsertDim(InsertDim(tmin_historical, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-names(dim(tmax_historical)) &lt;- c(&quot;model&quot;, &quot;var&quot;, &quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
-names(dim(tmin_historical)) &lt;- c(&quot;model&quot;, &quot;var&quot;, &quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+names(dim(tmax_historical)) &lt;- c(&#39;time&#39;, &#39;lon&#39;, &#39;lat&#39;)
+names(dim(tmin_historical)) &lt;- c(&#39;time&#39;, &#39;lon&#39;, &#39;lat&#39;)
+
+tmax_historical &lt;- InsertDim(InsertDim(tmax_historical, posdim = 1, 
+                                       lendim = 1, name = &#39;var&#39;), 
+                             posdim = 1, lendim = 1, name = &#39;model&#39;)
+tmin_historical &lt;- InsertDim(InsertDim(tmin_historical, posdim = 1, 
+                                       lendim = 1, name = &#39;var&#39;), 
+                             posdim = 1, lendim = 1, name = &#39;model&#39;)
+
 time &lt;- seq(ISOdate(1971, 1, 1), ISOdate(2000, 12, 31), &quot;day&quot;)
 metadata &lt;- list(time = list(standard_name = &#39;time&#39;, long_name = &#39;time&#39;, 
                              calendar = &#39;proleptic_gregorian&#39;,
@@ -310,12 +314,16 @@ for (j in 1 : 8) {
   tmin_projection &lt;- abind(tmin_projection, gridnew2, along = 3)
 }
 
-tmax_projection &lt;- InsertDim(InsertDim(tmax_projection, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-tmin_projection &lt;- InsertDim(InsertDim(tmin_projection, posdim = 1, lendim = 1), 
-                             posdim = 1, lendim = 1)
-names(dim(tmax_projection)) &lt;- c(&quot;model&quot;, &quot;var&quot;, &quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
-names(dim(tmin_projection)) &lt;- c(&quot;model&quot;, &quot;var&quot;, &quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+names(dim(tmax_projection)) &lt;- c(&quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+names(dim(tmin_projection)) &lt;- c(&quot;time&quot;, &quot;lon&quot;, &quot;lat&quot;)
+
+tmax_projection &lt;- InsertDim(InsertDim(tmax_projection, posdim = 1, 
+                                       lendim = 1, name = &#39;var&#39;), 
+                             posdim = 1, lendim = 1, name = &#39;model&#39;)
+tmin_projection &lt;- InsertDim(InsertDim(tmin_projection, posdim = 1, 
+                                       lendim = 1, name = &#39;var&#39;), 
+                             posdim = 1, lendim = 1, name = &#39;model&#39;)
+
 time &lt;- seq(ISOdate(2006, 1, 1), ISOdate(2100, 12, 31), &quot;day&quot;)
 metadata &lt;- list(time = list(standard_name = &#39;time&#39;, long_name = &#39;time&#39;, 
                              calendar = &#39;proleptic_gregorian&#39;,
@@ -367,7 +375,7 @@ List of 3
 
 <pre><code class="r">dtr_rcp &lt;- array(dim = c(length(lon), length(lat), 4))             
 for (j in 1:4){
-              dtr_rcp[,,j] &lt;- Mean1Dim(dtr_indicator$indicator[,j,,,,], 1)
+              dtr_rcp[,,j] &lt;- MeanDims(dtr_indicator$indicator[,j,,,,], &#39;year&#39;)
 }            
 breaks &lt;- 0 : (max(dtr_rcp) + 1)         
 
@@ -393,10 +401,10 @@ PlotLayout(PlotEquiMap, c(1, 2), lon = lon, lat = lat, var = dtr_rcp,
 
 <p>The comparison between the reference and the future projection diurnal temperature variation indicator can be computed With a simple subtraction. To visualize the result, <code>PlotLayout</code> function will be applied again. The resulting plot will be saved in the working directory.</p>
 
-<pre><code class="r">dtr_diff &lt;- array(dim=c(length(lat), length(lon), 4))
+<pre><code class="r">dtr_diff &lt;- array(dim = c(length(lat), length(lon), 4))
 for (i in 1:4){
-  dtr_diff[,,i] &lt;- Mean1Dim(dtr_indicator$indicator[,i,1,1,,], 1) - 
-                   Mean1Dim(dtr_indicator_reference$indicator[,i,1,1,,], 1)
+  dtr_diff[,,i] &lt;- MeanDims(dtr_indicator$indicator[, i, 1, 1, , ], &#39;year&#39;) - 
+                   MeanDims(dtr_indicator_reference$indicator[, i, 1, 1, , ], &#39;year&#39;)
 }
 
 PlotLayout(PlotEquiMap, c(1, 2), lon = lon, lat = lat, var = dtr_diff,

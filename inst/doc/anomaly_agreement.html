@@ -223,7 +223,7 @@ hr {
 <p>All the other R packages involved can be installed directly from CRAN and loaded as follows:</p>
 
 <pre><code class="r">library(abind)
-library(s2dverification)
+library(s2dv)
 library(ggplot2)
 </code></pre>
 
@@ -358,17 +358,17 @@ model  time   lon   lat
 </code></pre>
 
 <ul>
-<li>Now, the mean climatology value for each grid point and model can be computed by using the <code>Mean1Dim()</code> function belonging to the <strong>s2dverification package</strong>. The position of the temporal dimension should be specified in parameter <code>posdim</code>.</li>
+<li>Now, the mean climatology value for each grid point and model can be computed by using the <code>MeanDims()</code> function belonging to the <strong>s2dv package</strong>. The position of the temporal dimension should be specified in parameter <code>posdim</code>.</li>
 </ul>
 
-<pre><code class="r">climatology &lt;- Mean1Dim(summer_historical$data, posdim = 2) 
+<pre><code class="r">climatology &lt;- MeanDims(summer_historical$data, dims = &#39;time&#39;) 
 </code></pre>
 
 <ul>
-<li><code>Season()</code> function from <strong>s2dverification package</strong> returns the mean annual time series for the selected season by defining the parameters of the initial month of the data (<code>monini = 1</code>), the first month of the season (<code>moninf = 6</code>) and the final month of the season (<code>monsup = 8</code>). The last two parameters, <code>moninf</code> and <code>monsup</code>, have their origin with respect to the first one <code>monini</code>. </li>
+<li><code>Season()</code> function from <strong>s2dv package</strong> returns the mean annual time series for the selected season by defining the parameters of the initial month of the data (<code>monini = 1</code>), the first month of the season (<code>moninf = 6</code>) and the final month of the season (<code>monsup = 8</code>). The last two parameters, <code>moninf</code> and <code>monsup</code>, have their origin with respect to the first one <code>monini</code>. </li>
 </ul>
 
-<pre><code class="r">summer_projection &lt;- Season(multimodel_projection, posdim = 3, 
+<pre><code class="r">summer_projection &lt;- Season(multimodel_projection, time_dim = &#39;time&#39;, 
                             monini = 1, moninf = 6, monsup = 8)
 </code></pre>
 
@@ -378,16 +378,18 @@ model  time   lon   lat
 model   lon   lat 
     4    12     8 
 &gt; dim(summer_projection)
-model   var  time   lon   lat 
-    4     1   95    12     8 
+ time model   var   lon   lat 
+   95     4     1    12     8 
 </code></pre>
 
 <ul>
 <li>A new dimension will be added by running the function <code>InsertDim()</code> in order to obtain the same dimensions as the projections data. <code>InsertDim()</code> repeats the original data the required number of times (21 years of future simulations) in the adequated position (the temporal dimension in the summer_projection data is in the third position). </li>
 </ul>
 
-<pre><code class="r">climatology &lt;- InsertDim(InsertDim(climatology, posdim = 2, lendim = 1), 
-                         posdim = 3, lendim = 95)
+<pre><code class="r">climatology &lt;- InsertDim(
+                 InsertDim(
+                   climatology, posdim = 2, lendim = 1, name = &#39;var&#39;), 
+                 posdim = 1, lendim = 95, name = &#39;time&#39;)
 </code></pre>
 
 <ul>
@@ -401,7 +403,7 @@ model   var  time   lon   lat
 
 <p>In order to obtain a spatial visualitzation, the temporal mean is computed. So, the time average anomalies for all models is saved in the <code>average</code> object. <code>AnoAgree()</code> function from <strong>ClimProjDiags package</strong> calculates the percentages of models which agrees with a positive or negative mean in each grid point. </p>
 
-<pre><code class="r">average &lt;- Mean1Dim(anomaly,  which(names(dim(anomaly)) == &quot;time&quot;))
+<pre><code class="r">average &lt;- MeanDims(anomaly, dims = &quot;time&quot;)
 agreement &lt;- AnoAgree(average, membersdim = which(names(dim(average)) == &quot;model&quot;))
 </code></pre>
 
@@ -413,7 +415,7 @@ agreement &lt;- AnoAgree(average, membersdim = which(names(dim(average)) == &quo
 colorbar_lim &lt;- ceiling(max(abs(max(average)), abs(min(average))))
 brks &lt;- seq(-colorbar_lim, colorbar_lim, length.out = 11)
 
-PlotEquiMap(drop(Mean1Dim(average, which(names(dim(average)) == &quot;model&quot;))), 
+PlotEquiMap(drop(MeanDims(average, dims = &quot;model&quot;)), 
             lat = lat, lon = lon, units = &quot;K&quot;, brks = brks, 
             toptitle = paste(var, &quot;- climatology:&quot;, start_climatology, &quot;to&quot;, 
                              end_climatology, &quot;and future simulation:&quot;, 
@@ -427,15 +429,15 @@ PlotEquiMap(drop(Mean1Dim(average, which(names(dim(average)) == &quot;model&quot
 
 <h3>5- Multi-model agreement temporal visualization</h3>
 
-<p>To visualize the time evolution of multi-model agreement, the spatial average is performed by a grid pixel size using the <code>WeightedMean</code> function from the <strong>ClimProjDiags package</strong>. Also, a smooth filter is applied with the <code>Smoothing()</code> function from the <strong>s2dverifiction package</strong>. In this example, a 5-year moving window filter is applied by defining the parameter <code>runmeanlen = 5</code>.</p>
+<p>To visualize the time evolution of multi-model agreement, the spatial average is performed by a grid pixel size using the <code>WeightedMean</code> function from the <strong>ClimProjDiags package</strong>. Also, a smooth filter is applied with the <code>Smoothing()</code> function from the <strong>s2dv package</strong>. In this example, a 5-year moving window filter is applied by defining the parameter <code>runmeanlen = 5</code>.</p>
 
 <pre><code class="r">temporal &lt;- drop(WeightedMean(anomaly, lon = lon, lat = lat, mask = NULL))
-temporal &lt;- Smoothing(temporal, runmeanlen = 5, numdimt = 2)
+temporal &lt;- Smoothing(temporal, time_dim = &#39;time&#39;, runmeanlen = 5)
 </code></pre>
 
 <p>Before visualizing, a data frame with the proper format is created. </p>
 
-<pre><code class="r">data_frame &lt;- as.data.frame.table(t(temporal))
+<pre><code class="r">data_frame &lt;- as.data.frame.table(temporal)
 years &lt;- rep(start_projection : end_projection, 4)
 data_frame$Year &lt;- c(years)
 names(data_frame)[2] &lt;- &quot;Model&quot;

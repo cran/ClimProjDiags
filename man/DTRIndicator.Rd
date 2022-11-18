@@ -4,8 +4,16 @@
 \alias{DTRIndicator}
 \title{Diurnal temperature range indicator (DTR) of multidimensional arrays}
 \usage{
-DTRIndicator(tmax, tmin, ref, by.seasons = TRUE, dates = NULL,
-  timedim = NULL, calendar = NULL, ncores = NULL)
+DTRIndicator(
+  tmax,
+  tmin,
+  ref,
+  by.seasons = TRUE,
+  dates = NULL,
+  timedim = NULL,
+  calendar = NULL,
+  ncores = NULL
+)
 }
 \arguments{
 \item{tmax}{A numeric multidimensional array containing daily maximum temperature.}
@@ -60,4 +68,3 @@ aa <- DTRIndicator(tmax, tmin, ref = a, by.seasons = FALSE, ncores = NULL)
 str(aa)
 dim(aa$indicator)
 }
-

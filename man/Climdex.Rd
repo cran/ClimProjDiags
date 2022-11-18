@@ -4,8 +4,16 @@
 \alias{Climdex}
 \title{Wrapper for applying the climdex routine  ETCCDI climate change indices to n-dimensional arrays.}
 \usage{
-Climdex(data, metric, threshold = NULL, base.range = NULL, dates = NULL,
-  timedim = NULL, calendar = NULL, ncores = NULL)
+Climdex(
+  data,
+  metric,
+  threshold = NULL,
+  base.range = NULL,
+  dates = NULL,
+  timedim = NULL,
+  calendar = NULL,
+  ncores = NULL
+)
 }
 \arguments{
 \item{data}{A numeric n-dimensional array containing daily maximum or minimum temperature, wind speed or precipitation amount.}
@@ -68,4 +76,3 @@ David Bronaugh for the Pacific Climate Impacts Consortium (2015).
  climdex.pcic: PCIC Implementation of Climdex Routines. R package
  version 1.1-6. http://CRAN.R-project.org/package=climdex.pcic
 }
-

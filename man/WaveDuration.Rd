@@ -4,8 +4,16 @@
 \alias{WaveDuration}
 \title{Heat and cold waves duration for n-dimensional arrays}
 \usage{
-WaveDuration(data, threshold, op = ">", spell.length = 6,
-  by.seasons = TRUE, dates = NULL, calendar = NULL, ncores = NULL)
+WaveDuration(
+  data,
+  threshold,
+  op = ">",
+  spell.length = 6,
+  by.seasons = TRUE,
+  dates = NULL,
+  calendar = NULL,
+  ncores = NULL
+)
 }
 \arguments{
 \item{data}{A numeric n-dimensional array containing daily maximum or minimum temperature}
@@ -48,4 +56,3 @@ threshold <- rep(40, 31)
 a <- WaveDuration(data, threshold, op = ">", spell.length = 6, by.seasons = TRUE, ncores = NULL)
 str(a)
 }
-

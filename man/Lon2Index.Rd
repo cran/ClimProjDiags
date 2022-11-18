@@ -33,4 +33,3 @@ pos <- Lon2Index(lon, lonmin = 340, lonmax = 20)
 lon[pos]
 
 }
-

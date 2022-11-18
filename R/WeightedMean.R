@@ -124,11 +124,10 @@ WeightedMean <- function(data, lon, lat, region = NULL, mask = NULL, londim = NU
   cosphi <- t(array(cos(lat * pi / 180), dim = c(length(lat), length(lon))))
   nblat <- length(lat)
   nblon <- length(lon)
-  lon[lon > 180] = lon[lon > 180] - 360
-  dlon <- abs(c(abs(lon[2 : nblon]) - abs(lon[1 : nblon - 1]))) * pi / 180
+  dlon <- diff(lon) * pi / 180
   dlon <- c(dlon, dlon[1])
   dlon <- array(dlon, dim = c(nblon, nblat))
-  dlat <- abs(c(lat[2 : nblat] - lat[1 : nblat - 1])) * pi / 180
+  dlat <- diff(lat) * pi / 180
   dlat <- c(dlat, dlat[1])
   dlat <- t(array(dlat, dim = c(nblat, nblon)))
   weight <- (dlon * dlat * cosphi) 

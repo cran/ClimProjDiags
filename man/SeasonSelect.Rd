@@ -45,4 +45,3 @@ attr(data, 'Variables')$common[[2]]$dim[[3]]$vals <- time
 a <- SeasonSelect(data = data, season = 'JJA')
 str(a)
 }
-

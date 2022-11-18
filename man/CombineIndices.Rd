@@ -33,4 +33,3 @@ dim(b) <- c(lon = 2, lat = 3, mod = 4)
 comb_ind <- CombineIndices(indices = list(a, b), weights = c(2, 1), operation = "add")
 print(comb_ind)
 }
-

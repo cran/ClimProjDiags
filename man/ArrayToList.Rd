@@ -38,4 +38,3 @@ str(datalist)
 \seealso{
 \link[s2dv]{PlotLayout}
 }
-

@@ -43,4 +43,3 @@ a <- SelBox(data = data, lon = lon, lat = lat, region = c(2, 20, 1, 5),
            londim = 1, latdim = 2, mask = NULL)
 str(a)
 }
-

@@ -4,8 +4,16 @@
 \alias{DTRRef}
 \title{Diurnal temperature range of multidimensional arrays}
 \usage{
-DTRRef(tmax, tmin, by.seasons = TRUE, dates = NULL, timedim = NULL,
-  calendar = NULL, na.rm = TRUE, ncores = NULL)
+DTRRef(
+  tmax,
+  tmin,
+  by.seasons = TRUE,
+  dates = NULL,
+  timedim = NULL,
+  calendar = NULL,
+  na.rm = TRUE,
+  ncores = NULL
+)
 }
 \arguments{
 \item{tmax}{A numeric multidimensional array containing daily maximum temperature.}
@@ -68,4 +76,3 @@ dim(tmin) <- c(2, 3, 365)
 a <- DTRRef(tmax, tmin, by.seasons = FALSE, dates = time,  timedim = 3, ncores = NULL)
 str(a)
 }
-

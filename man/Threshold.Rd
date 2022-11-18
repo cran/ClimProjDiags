@@ -4,8 +4,15 @@
 \alias{Threshold}
 \title{Daily thresholds based on quantiles for n-dimensional arrays}
 \usage{
-Threshold(data, dates = NULL, calendar = NULL, base.range = NULL,
-  qtiles = 0.9, ncores = NULL, na.rm = FALSE)
+Threshold(
+  data,
+  dates = NULL,
+  calendar = NULL,
+  base.range = NULL,
+  qtiles = 0.9,
+  ncores = NULL,
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{data}{A numeric n-dimensional array containing daily data.}
@@ -41,5 +48,5 @@ attr(data, 'Variables')$dat1$time <- time
 
 a <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL)
 str(a)
-}
 
+}

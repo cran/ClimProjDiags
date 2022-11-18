@@ -7,28 +7,49 @@
 Subset(x, along, indices, drop = FALSE)
 }
 \arguments{
-\item{x}{A multidimensional array to be sliced. It can have dimension names either in \code{names(dim(x))} or either in the attribute 'dimensions'.}
+\item{x}{A named multidimensional array to be sliced. It can have dimension 
+names either in \code{names(dim(x))} or in the attribute 'dimensions'.}
 
-\item{along}{Vector with references to the dimensions to take the subset from: either integers or dimension names.}
+\item{along}{A vector with references to the dimensions to take the subset 
+from: either integers or dimension names.}
 
-\item{indices}{List of indices to take from each dimension specified in 'along'. If a single dimension is specified in 'along' the indices can be directly provided as a single integer or as a vector.}
+\item{indices}{A list of indices to take from each dimension specified in 
+'along'. If a single dimension is specified in 'along', it can be directly
+provided as an integer or a vector.}
 
-\item{drop}{Whether to drop all the dimensions of length 1 in the resulting array, none, only those that are specified in 'along', or only those that are not specified in 'along'. The possible values are, respectively: 'all' or TRUE, 'none' or FALSE, 'selected', and 'non-selected'.}
+\item{drop}{Whether to drop all the dimensions of length 1 in the resulting 
+array, none, only those that are specified in 'along', or only those that 
+are not specified in 'along'. The possible values are: 'all' or TRUE, 'none'
+or FALSE, 'selected', and 'non-selected'. The default value is FALSE.}
 }
 \value{
-An array with similar dimensions as the \code{x} input, but with trimmed or dropped dimensions.
+An array with similar dimensions as the \code{x} input, but with 
+ trimmed or dropped dimensions.
 }
 \description{
-This function allows to subset (i.e. slice, take a chunk of) an array, in a similar way as done in the function \code{take()} in the package plyr. There are two main inprovements:\cr\cr The input array can have dimension names, either in \code{names(dim(x))} or in the attribute 'dimensions', and the dimensions to subset along can be specified via the parameter \code{along} either with integer indices or either by their name.\cr\cr There are additional ways to adjust which dimensions are dropped in the resulting array: either to drop all, to drop none, to drop only the ones that have been sliced or to drop only the ones that have not been sliced.\cr\cr If an array is provided without dimension names, dimension names taken from the parameter \code{dim_names} will be added to the array.
-This function computes the threshold based on a quantile value for each day of the year of the daily data input.
+This function allows to subset (i.e. slice, take a chunk of) an array, in a 
+similar way as done in the function \code{take()} in the package plyr. There
+are two main snprovements:\cr\cr First, the input array can have dimension 
+names, either in \code{names(dim(x))} or in the attribute 'dimensions'. If 
+both exist, the attribute 'dimensions' is prioritized. The dimensions to 
+subset along can be specified via the parameter \code{along} either with
+integer indices or either by their name.\cr\cr Second, there are additional
+ways to adjust which dimensions are dropped in the resulting array: either to
+drop all, to drop none, to drop only the ones that have been sliced or to drop
+only the ones that have not been sliced.\cr\cr
 }
 \examples{
-##Example synthetic data:
+#Example synthetic data:
+# Dimension has name already
 data <- 1:(2 * 3 * 372 * 1)
 dim(data) <- c(time = 372, lon = 2, lat = 3, model = 1)
 data_subset <- Subset(data, c('time', 'model'), 
                      list(1:10, TRUE), drop = 'selected')
 dim(data_subset)
+# Use attributes 'dimensions'
+data <- array(1:(2 * 3 * 372 * 1), dim = c(2, 3, 372, 1))
+attributes(data)[['dimensions']] <- c('lat', 'lon', 'time', 'model')
+data_subset <- Subset(data, c('lon', 'lat'), list(1, 1), drop = TRUE)
+dim(data_subset)
 
 }
-

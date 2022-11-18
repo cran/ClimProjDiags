@@ -28,6 +28,7 @@
 #'
 #'a <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL)
 #'str(a)
+#'
 #'@export
 Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL, na.rm = FALSE) {
   if (is.null(data)) {
@@ -102,7 +103,7 @@ Threshold <- function(data, dates = NULL, calendar = NULL, base.range = NULL, qt
             "element will be used.")
   }
   dates <- as.PCICt(dates, cal = calendar)
-  dates = as.character(dates)
+  dates <- as.POSIXlt(as.character(dates), format = "%Y-%m-%d")
   jdays <- as.numeric(strftime(dates, format = "%j"))
   if (calendar == "gregorian" | calendar == "standard" | calendar == "proleptic_gregorian") {
     year <- as.numeric(strftime(dates, format = "%Y"))

@@ -1,6 +1,6 @@
-cfdeef01ef2104c7ac7d0db6a099d22e *DESCRIPTION
-ef22f9b12bfb50bd19f1a91fe47fc538 *NAMESPACE
-428ec49350dfcd07c30e1180ceef5295 *NEWS.md
+7da0dc8e17337c8a0a52c812a447765f *DESCRIPTION
+48831948200d279f921e0ef8658037aa *NAMESPACE
+ff0d43ebd56fbcaeb5767237387d9416 *NEWS.md
 b4aa345b0dc3e42a6a6af5c783bd436b *R/AnoAgree.R
 3c7496e7f930d0141c5df1f054b651c5 *R/ArrayToList.R
 dc7426870749f020a7ce5b58a0516458 *R/Climdex.R
@@ -16,6 +16,7 @@ baedbe7993f7e548c6efc4222035230f *R/SelBox.R
 e69851ddb3119ddc653b08bb32e64a94 *R/Subset.R
 88fa9daafe8e79b639f9d69c034d2d8a *R/Threshold.R
 7586f3610bb3628fb12274853d4d0da9 *R/WaveDuration.R
+19c44b91079d0fd0fb70901f11b8050a *R/WeightedCells.R
 6c9878782f2976665aae293b62ce56ce *R/WeightedMean.R
 5ff23ffc83ea3f90708e7f5d48e8234e *README.md
 be66627b5c33f660e9ec2fa05b996fa3 *build/vignette.rds
@@ -42,6 +43,7 @@ f681489f50bed6dd12beddbfa9b77bd3 *man/ShiftLon.Rd
 7d5b52578ad65e489f01bbbd6f13275b *man/Subset.Rd
 a4cfb9689259b7f29e1ef856eb80c2e7 *man/Threshold.Rd
 f5a3d8fa975f6bcc1294b36fabb186c7 *man/WaveDuration.Rd
+24f6c2af8943e79851b31bcc1701d947 *man/WeightedCells.Rd
 442a9a1422d50cdcbdac97ca2eb2f2db *man/WeightedMean.Rd
 b76b0d195a5de1835027efbf7da290a5 *vignettes/Figures/CombinedIndices.png
 89ed0973a1c52b16acd2fb0176a80964 *vignettes/Figures/SpatialComparisonDTR.png

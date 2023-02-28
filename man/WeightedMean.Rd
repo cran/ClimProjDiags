@@ -10,60 +10,80 @@ WeightedMean(
   lat,
   region = NULL,
   mask = NULL,
-  londim = NULL,
-  latdim = NULL
+  londim = "lon",
+  latdim = "lat",
+  na.rm = TRUE,
+  ncores = NULL
 )
 }
 \arguments{
-\item{data}{An array with minimum two dimensions of latitude and longitude.}
+\item{data}{A numeric array with named dimensions, representing the data to be
+applied the weights. It should have at least the latitude dimension and it 
+can have more other dimensions.}
 
-\item{lon}{Numeric vector of longitude locations of the cell centers of the grid of \code{data}. This vector must be the same length as the longitude dimension in the parameter \code{data}.}
+\item{lon}{A numeric vector of longitude locations of the cell centers of the 
+grid of \code{data}. This vector must be of the same length as the longitude 
+dimension in the parameter \code{data} (in degrees).}
 
-\item{lat}{Numeric vector of latitude locations of the cell centers of the grid of \code{data}. This vector must be the same length as the latitude dimension in the parameter \code{data}.}
+\item{lat}{A numeric vector of latitude locations of the cell centers of the 
+grid of \code{data}. This vector must be of the same length as the latitude 
+dimension in the parameter \code{data} (in degrees).}
 
-\item{region}{A vector of length four indicating the minimum longitude, the maximum longitude, the minimum latitude and the maximum latitude of the region to be averaged.}
+\item{region}{A vector of length four indicating the minimum longitude, the 
+maximum longitude, the minimum latitude and the maximum latitude of the 
+region to be averaged.}
 
-\item{mask}{A matrix with the same spatial dimensions of \code{data}. It can contain either a) TRUE where the value at that position is to be accounted for and FALSE where not, or b) numeric values, where those greater or equal to 0.5 are to be accounted for, and those smaller are not. Attention: if the longitude and latitude dimensions of the data and mask coincide in length, the user must ensure the dimensions of the mask are in the same order as the dimensions in the array provided in the parameter \code{data}.}
+\item{mask}{A matrix with the same spatial dimensions of \code{data}. It can 
+contain either a) TRUE where the value at that position is to be accounted 
+for and FALSE where not, or b) numeric values, where those greater or equal 
+to 0.5 are to be accounted for, and those smaller are not. Attention: if the 
+longitude and latitude dimensions of the data and mask coincide in length, 
+the user must ensure the dimensions of the mask are in the same order as the 
+dimensions in the array provided in the parameter \code{data}.}
 
-\item{londim}{An integer number indicating the position of the longitude dimension in the \code{data} object.}
+\item{londim}{A character string indicating the name of the longitudinal
+dimension. The default value is 'lon'.}
 
-\item{latdim}{An integer number indicating the position of the latitude dimension in the \code{data} object.}
+\item{latdim}{A character string indicating the name of the latitudinal
+dimension. The default value is 'lat'.}
+
+\item{na.rm}{A logical value indicating whether missing values should be 
+stripped before the computation proceeds, by default it is set to TRUE.}
+
+\item{ncores}{An integer indicating the number of cores to use for parallel 
+computation. The default value is NULL.}
 }
 \value{
-An array, matrix or vector containig the area-weighted average with the same dimensions as \code{data}, except for the spatial longitude and latitude dimensions, which disappear.
+An array, matrix or vector containig the area-weighted average with 
+the same dimensions as \code{data}, except for the spatial longitude and 
+latitude dimensions, which disappear.
 }
 \description{
-This function computes a spatial area-weighted average of n-dimensional arrays being possible to select a region and to add a mask to be applied when computing the average.
+This function computes a spatial area-weighted average of n-dimensional arrays 
+being possible to select a region and to add a mask to be applied when 
+computing the average.
 }
 \examples{
-##Example synthetic data 1:
+# Example 1:
 data <- 1:(2 * 3 * 4 * 5)
 dim(data) <- c(lon = 2, lat = 3, time = 4, model = 5)
 lat <- c(1, 10, 20)
 lon <- c(1, 10)
-
-a <- WeightedMean(data = data, lon = lon, lat = lat, region = NULL, 
-                 mask = NULL, londim = 1, latdim = 2)
-str(a)
+a <- WeightedMean(data = data, lon = lon, lat = lat, region = NULL)
 
 mask <- c(0, 1, 0, 1, 0, 1)
 dim(mask) <- c(lon = 2, lat = 3)
-a <- WeightedMean(data = data, lon = lon, lat = lat, region = NULL, 
-                 mask = mask, londim = 1, latdim = 2)
-str(a)
+a <- WeightedMean(data = data, lon = lon, lat = lat, mask = mask)
 
 region <- c(1, 10, 1, 10)
 a <- WeightedMean(data = data, lon = lon, lat = lat, region = region, 
-                 mask = mask, londim = 1, latdim = 2)
-str(a)
+                 mask = mask)
 
-##Example synthetic data:
+# Example 2:
 data <- 1:(2 * 3 * 4)
-dim(data) <- c(lon = 2, lat = 3, time=4)
+dim(data) <- c(lon = 2, lat = 3, time = 4)
 lat <- c(1, 10, 20)
 lon <- c(1, 10)
+a <- WeightedMean(data = data, lon = lon, lat = lat)
 
-a <- WeightedMean(data = data, lon = lon, lat = lat, region = NULL,
-                 mask = NULL, londim = 1, latdim = 2)
-str(a)
 }

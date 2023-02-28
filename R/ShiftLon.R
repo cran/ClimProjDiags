@@ -35,15 +35,20 @@
 #'  
 #'@import multiApply
 #'@export
-ShiftLon <- function(data, lon,  westB, lon_dim = 'lon', ncores = NULL) {
+ShiftLon <- function(data, lon, westB, lon_dim = 'lon', ncores = NULL) {
   
   # Check inputs
   ## data
   if (is.null(data)) {
     stop("Parameter 'data' cannot be NULL.")
   }
-  if (!is.array(data) | !is.numeric(data)) {
-    stop("Parameter 'data' must be a numeric array.")
+  if (is.vector(data)) {
+    data <- as.array(data)
+    names(dim(data)) <- lon_dim
+    warning("Parameter 'data' is a vector. Transfer it to an array and assign ", lon_dim, " as dimension name.")
+  }
+  if (!is.array(data)) {
+    stop("Parameter 'data' must be an array.")
   }
   if(any(is.null(names(dim(data))))| any(nchar(names(dim(data))) == 0)) {
     stop("Parameter 'data' must have dimension names.")
@@ -106,13 +111,15 @@ ShiftLon <- function(data, lon,  westB, lon_dim = 'lon', ncores = NULL) {
   } else {
     new.lon <- c(lon[first:length(lon)],lon[1:(first-1)])
   }
-  ## Order to  monotonically increasing
+  ## Order to monotonically increasing
   if (!all(diff(new.lon) > 0)) {
     new.lon[(which(diff(new.lon) < 0) + 1):length(new.lon)] <- new.lon[(which(diff(new.lon) < 0) + 1):length(new.lon)] + 360
     
   }
   
   # Shifting the data
+  ori_dim <- dim(data)
+
   output <- Apply(data = data,
                   target_dims = lon_dim,
                   fun = .ShiftLon,
@@ -122,13 +129,16 @@ ShiftLon <- function(data, lon,  westB, lon_dim = 'lon', ncores = NULL) {
   
   # Shift new.lon back to start at westB
   new.lon <- new.lon + shft_westB_back
-  
+
+  # Change dimension order back
+  output <- aperm(output, match(names(ori_dim), names(dim(output))))
+
   return(list(data = output, lon = new.lon))
 }
 
 .ShiftLon <- function(data, lon, new.lon) {
   # data: [lon]
-  new.data <- NA * data
+  new.data <- data
   new.data[new.lon %in% lon] <- data[lon %in% new.lon, drop = F]
   new.data[!new.lon %in% lon] <- data[!lon %in% new.lon, drop = F]
   

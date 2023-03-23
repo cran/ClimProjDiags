@@ -1,6 +1,6 @@
-f5f3d374cc415e6c5be606bbe8c7b29d *DESCRIPTION
+063d3b9ebf7b96b520e934c42ff0403b *DESCRIPTION
 9d7f5fb418ab664e35bfd70fde84f5d8 *NAMESPACE
-2a8074f59e908eee7a744bc436f1766f *NEWS.md
+10eddd37bc8bb34ad1763771d1014aa0 *NEWS.md
 b4aa345b0dc3e42a6a6af5c783bd436b *R/AnoAgree.R
 3c7496e7f930d0141c5df1f054b651c5 *R/ArrayToList.R
 dc7426870749f020a7ce5b58a0516458 *R/Climdex.R
@@ -13,7 +13,7 @@ ba240c233c84a046fea62a280f677833 *R/Extremes.R
 0e38d3a1abddc015b8b6921924fec156 *R/SeasonSelect.R
 ebb9eaf916c377cbbbc94b3253463524 *R/SelBox.R
 191fedbc8d289605b21e3fe94f135e7a *R/ShiftLon.R
-e69851ddb3119ddc653b08bb32e64a94 *R/Subset.R
+f3868b2345bda07b3219a8b2ba7905cf *R/Subset.R
 88fa9daafe8e79b639f9d69c034d2d8a *R/Threshold.R
 7586f3610bb3628fb12274853d4d0da9 *R/WaveDuration.R
 19c44b91079d0fd0fb70901f11b8050a *R/WeightedCells.R
@@ -40,7 +40,7 @@ e937847e0a6049ea05f5615b9fc3e835 *man/DTRIndicator.Rd
 170954432dbda06c80c138b2866c4279 *man/SeasonSelect.Rd
 f971e8be978c35cb90fa91f4de41b505 *man/SelBox.Rd
 f681489f50bed6dd12beddbfa9b77bd3 *man/ShiftLon.Rd
-7d5b52578ad65e489f01bbbd6f13275b *man/Subset.Rd
+916510d74865a76f79858e6db29bc7ad *man/Subset.Rd
 a4cfb9689259b7f29e1ef856eb80c2e7 *man/Threshold.Rd
 f5a3d8fa975f6bcc1294b36fabb186c7 *man/WaveDuration.Rd
 24f6c2af8943e79851b31bcc1701d947 *man/WeightedCells.Rd

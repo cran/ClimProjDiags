@@ -4,11 +4,11 @@
 #'similar way as done in the function \code{take()} in the package plyr. There
 #'are two main snprovements:\cr\cr First, the input array can have dimension 
 #'names, either in \code{names(dim(x))} or in the attribute 'dimensions'. If 
-#'both exist, the attribute 'dimensions' is prioritized. The dimensions to 
-#'subset along can be specified via the parameter \code{along} either with
-#'integer indices or either by their name.\cr\cr Second, there are additional
-#'ways to adjust which dimensions are dropped in the resulting array: either to
-#'drop all, to drop none, to drop only the ones that have been sliced or to drop
+#'both exist, \code{names(dim(x))} is prioritized. The dimensions to subset
+#'along can be specified via the parameter \code{along} either with integer
+#'indices or either by their name.\cr\cr Second, there are additional ways to
+#'adjust which dimensions are dropped in the resulting array: either to drop
+#'all, to drop none, to drop only the ones that have been sliced or to drop
 #'only the ones that have not been sliced.\cr\cr 
 #'
 #'@param x A named multidimensional array to be sliced. It can have dimension 
@@ -48,19 +48,27 @@ Subset <- function(x, along, indices, drop = FALSE) {
   }
 
   # Take the input array dimension names
-  dim_names <- attr(x, 'dimensions')
-  if (!is.character(dim_names)) {
-    dim_names <- names(dim(x))
-  } else {
-    names(dim(x)) <- dim_names
+  x_has_names_dim <- TRUE
+  dim_names <- names(dim(x))
+  if (is.null(dim_names)) {
+    dim_names <- attr(x, 'dimensions')
+    x_has_names_dim <- FALSE
   }
 
   if (!is.character(dim_names)) {
     if (any(sapply(along, is.character))) {
       stop("The input array 'x' doesn't have labels for the dimensions but the parameter 'along' contains dimension names.")
     }
+  } else {
+    if (!is.null(names(dim(x))) & !is.null(attr(x, 'dimensions'))) {
+      if (any(names(dim(x)) != attr(x, 'dimensions'))) {
+        warning("Found attribute 'dimensions' containing different dimension names from ",
+                "dim(names(x)). Use the latter one only.")
+      }
+    } else if (is.null(names(dim(x))) & !is.null(attr(x, 'dimensions'))) {
+      names(dim(x)) <- dim_names
+    }
   }
-
   # Check along
   if (any(sapply(along, function(x) !is.numeric(x) && !is.character(x))) |
       length(along) == 0) {
@@ -134,6 +142,10 @@ Subset <- function(x, along, indices, drop = FALSE) {
       }
     }
   }
+  # if names(dim(x)) doesn't exist, remove the dimension names
+  if (!x_has_names_dim) {
+    names(dim(subset)) <- NULL
+  }
 
   # Amend the final dimensions and put dimnames and attributes
   metadata <- attributes(x)
@@ -153,12 +165,14 @@ Subset <- function(x, along, indices, drop = FALSE) {
       }
     }
   } else if (is.character(dim_names) & !identical(dim_names, character(0))) {
-    names(metadata[['dim']]) <- dim_names
+    if (x_has_names_dim) {
+      names(metadata[['dim']]) <- dim_names
+    }
     if ('dimensions' %in% names(attributes(x))) {
       metadata[['dimensions']] <- dim_names
     }
   }
-
   attributes(subset) <- metadata
-  subset
+
+  return(subset)
 }

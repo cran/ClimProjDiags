@@ -31,11 +31,11 @@ This function allows to subset (i.e. slice, take a chunk of) an array, in a
 similar way as done in the function \code{take()} in the package plyr. There
 are two main snprovements:\cr\cr First, the input array can have dimension 
 names, either in \code{names(dim(x))} or in the attribute 'dimensions'. If 
-both exist, the attribute 'dimensions' is prioritized. The dimensions to 
-subset along can be specified via the parameter \code{along} either with
-integer indices or either by their name.\cr\cr Second, there are additional
-ways to adjust which dimensions are dropped in the resulting array: either to
-drop all, to drop none, to drop only the ones that have been sliced or to drop
+both exist, \code{names(dim(x))} is prioritized. The dimensions to subset
+along can be specified via the parameter \code{along} either with integer
+indices or either by their name.\cr\cr Second, there are additional ways to
+adjust which dimensions are dropped in the resulting array: either to drop
+all, to drop none, to drop only the ones that have been sliced or to drop
 only the ones that have not been sliced.\cr\cr
 }
 \examples{

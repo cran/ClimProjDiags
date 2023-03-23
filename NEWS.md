@@ -1,3 +1,6 @@
+# 0.3.1 (Release date: 2023-03-23)
+- Subset(): Prioritize the dimension names from names(dim(x)) rather than attribute 'dimensions'; If the input data doesn't have dimension names, the output doesn't have either.
+
 # 0.3.0 (Release date: 2023-02-28)
 - SelBox() and ShiftLon() to accept non-numerical data input  
 - SelBox() uses the latitude and longitude dimension name instead of index  

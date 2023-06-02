@@ -20,7 +20,9 @@ Extremes(
 \arguments{
 \item{data}{A n-dimensional array containing daily data.}
 
-\item{threshold}{A n-dimensional array with the threshold to be/not to be reach, usually given by the a percentile computed with the \code{Threshold} function.}
+\item{threshold}{A n-dimensional array with the threshold to be/not to be 
+reach, usually given by the a percentile computed with the \code{Threshold} 
+function.}
 
 \item{op}{The operator to use to compare data to threshold.}
 
@@ -30,9 +32,12 @@ Extremes(
 
 \item{max.missing.days}{Maximum number of NA values per time period.}
 
-\item{dates}{A vector of dates with a calendar attributes. If NULL (by default), the 'time' attributes of parameter 'data' are considered.}
+\item{dates}{A vector of dates with a calendar attributes. If NULL 
+(by default), the 'time' attributes of parameter 'data' are considered.}
 
-\item{timedim}{An integer number indicating the position of the time dimension in the parameter \code{data}. If NULL (by default), the dimension called 'time' in parameter \code{data}.}
+\item{timedim}{An integer number indicating the position of the time dimension 
+in the parameter \code{data}. If NULL (by default), the dimension called 
+'time' in parameter \code{data}.}
 
 \item{calendar}{A character indicating the calendar type.}
 
@@ -41,29 +46,42 @@ Extremes(
 \value{
 A list of length 2:
 \itemize{
- \item\code{$output1}{An array with the same dimensions as the original \code{data}, except the time dimension which is reduced to annual resolution given a timeseries of maximum spell lengths for each year.}
+ \item\code{$output1}{An array with the same dimensions as the original 
+ \code{data}, except the time dimension which is reduced to annual resolution 
+ given a timeseries of maximum spell lengths for each year.}
  \item\code{$year}{A vector indicating the corresponding years.}
 }
 }
 \description{
-This function returns the number of spells of more than \code{min.length} days which exceed or are below the given \code{threshold} from daily data.
+This function returns the number of spells of more than 
+\code{min.length} days which exceed or are below the given \code{threshold} 
+from daily data.
 }
 \details{
-This routine compares data to the thresholds using the given operator, generating a series of TRUE or FALSE values; these values are then filtered to remove any sequences of less than \code{min.length} days of TRUE values. It then computes the lengths of the remaining sequences of TRUE values (spells) and sums their lengths. The \code{spells.can.spa .years} option controls whether spells must always terminate at the end of a period, or whether they may continue until the criteria ceases to be met or the end of the data is reached. The default for fclimdex is FALSE.
+This routine compares data to the thresholds using the given 
+operator, generating a series of TRUE or FALSE values; these values are then 
+filtered to remove any sequences of less than \code{min.length} days of TRUE 
+values. It then computes the lengths of the remaining sequences of TRUE values 
+(spells) and sums their lengths. The \code{spells.can.spa .years} option 
+controls whether spells must always terminate at the end of a period, or 
+whether they may continue until the criteria ceases to be met or the end of 
+the data is reached. The default for fclimdex is FALSE.
 }
 \examples{
 ##Example synthetic data:
 data <- 1:(2 * 3 * 310 * 1)
 dim(data) <- c(time = 310, lon = 2, lat = 3, model = 1)
 time <- as.POSIXct(paste(sort(rep(1902:1911, 31)), 1, 1:31, sep = "-"), tz = "CET")
-metadata <- list(time = list(standard_name = 'time', long_name = 'time',  calendar = 'noleap', 
+metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
+                            calendar = 'noleap', 
                             units = 'days since 1970-01-01 00:00:00', prec = 'double', 
                             dim = list(list(name = 'time', unlim = FALSE))))
 attr(time, "variables") <- metadata
 attr(data, 'Variables')$dat1$time <- time
 threshold <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL)
-res <- Extremes(data, threshold = threshold, op = ">", min.length = 6, spells.can.span.years = TRUE, 
-               max.missing.days = 5, ncores = NULL)
+res <- Extremes(data, threshold = threshold, op = ">", min.length = 6, 
+               spells.can.span.years = TRUE, max.missing.days = 5, 
+               ncores = NULL)
 str(res)
 
 }

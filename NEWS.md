@@ -1,3 +1,6 @@
+# 0.3.2 (Release date: 2023-06-01)
+- Remove climdex.pcic dependency
+
 # 0.3.1 (Release date: 2023-03-23)
 - Subset(): Prioritize the dimension names from names(dim(x)) rather than attribute 'dimensions'; If the input data doesn't have dimension names, the output doesn't have either.
 

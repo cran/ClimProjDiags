@@ -1,13 +1,19 @@
-#'Percentage of anomalies which agrees with the sign of the mean anomaly for multidimensional arrays
+#'Percentage of anomalies which agrees with the sign of the mean anomaly for 
+#'multidimensional arrays
 #'
-#'@description This function computes the mean and the percentage of agreement between anomalies.
+#'@description This function computes the mean and the percentage of agreement 
+#'between anomalies.
 #'
 #'@param ano A multidimensional array.
 #'@param membersdim The dimension in which models are stored.
-#'@param na.rm A logical indicating whether missing values should be removed. If \code{na.rm} is FALSE an NA value in any of the arguments will cause a value of NA to be returned, otherwise (TRUE by default) NA values are ignored.
+#'@param na.rm A logical indicating whether missing values should be removed. If 
+#'  \code{na.rm} is FALSE an NA value in any of the arguments will cause a value 
+#'  of NA to be returned, otherwise (TRUE by default) NA values are ignored.
 #'@param ncores The number of cores to be used when computing the agreement.
 #'
-#'@return An array of one dimension less than the \code{ano} object, except for one dimensional arrays or vectors, for which an array of dimension 1 called 'var' is returned.
+#'@return An array of one dimension less than the \code{ano} object, except for 
+#'one dimensional arrays or vectors, for which an array of dimension 1 called 
+#''var' is returned.
 #'
 #'@import multiApply
 #'@examples
@@ -16,7 +22,8 @@
 #'for(i in 1:20) { a <- c(a, rnorm(6)) }
 #'dim(a) <- c(lat = 2, lon = 3, var = 4, mod = 5)
 #'
-#'agree <- AnoAgree(ano = a, membersdim = which(names(dim(a)) == 'mod'), na.rm = TRUE, ncores = NULL)
+#'agree <- AnoAgree(ano = a, membersdim = which(names(dim(a)) == 'mod'), 
+#'                  na.rm = TRUE, ncores = NULL)
 #'print(agree)
 #'
 #'a <- rnorm(6)

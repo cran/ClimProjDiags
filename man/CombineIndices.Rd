@@ -7,29 +7,39 @@
 CombineIndices(indices, weights = NULL, operation = "mean")
 }
 \arguments{
-\item{indices}{List of n-dimensional arrays with equal dimensions to be combined.}
+\item{indices}{List of n-dimensional arrays with equal dimensions to be 
+combined.}
 
-\item{weights}{Vector of weights for the indices, whose length is the same as the list of parameter \code{indices}. If not provided, a weight of 1 is assigned to each index. If \code{operation = 'mean'} the weights are normalized to sum 1 all together.}
+\item{weights}{Vector of weights for the indices, whose length is the same as 
+the list of parameter \code{indices}. If not provided, a weight of 1 is 
+assigned to each index. If \code{operation = 'mean'} the weights are 
+normalized to sum 1 all together.}
 
-\item{operation}{The operation for combining the indices, either \code{"mean"} (default), \code{"add"}, \code{"subtract"} or \code{"divide"}.}
+\item{operation}{The operation for combining the indices, either \code{"mean"} 
+(default), \code{"add"}, \code{"subtract"} or \code{"divide"}.}
 }
 \value{
-An array of the same dimensions as one of the elements in the parameter \code{indices}.
+An array of the same dimensions as one of the elements in the 
+parameter \code{indices}.
 }
 \description{
-Function to combine climate indices for multiple models through addition, subtraction, division or averaging, optionally applying weights to each index.
+Function to combine climate indices for multiple models through 
+addition, subtraction, division or averaging, optionally applying weights to 
+each index.
 }
 \examples{
 a <- matrix(rnorm(6), 2, 3)
 b <- matrix(rnorm(6), 2, 3)
 
-comb_ind <- CombineIndices(indices = list(a, b), weights = c(2, 1), operation = "add")
+comb_ind <- CombineIndices(indices = list(a, b), weights = c(2, 1), 
+                          operation = "add")
 print(comb_ind)
 
 a <- rnorm(24)
 dim(a) <- c(lon = 2, lat = 3, mod = 4)
 b <- rnorm(24)
 dim(b) <- c(lon = 2, lat = 3, mod = 4)
-comb_ind <- CombineIndices(indices = list(a, b), weights = c(2, 1), operation = "add")
+comb_ind <- CombineIndices(indices = list(a, b), weights = c(2, 1), 
+                          operation = "add")
 print(comb_ind)
 }

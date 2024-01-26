@@ -23,13 +23,15 @@
 #'@param ncores The number of cores to be used when computing the wave duration.
 #'
 #'@return A list of length 2:
-#'  \itemize{
-#'  \item\code{$result}{An array with the same dimensions as the input 
-#'  \code{data}, but with the time dimension reduce from daily to monthly or 
-#'  seasonal resolution depending on the selected resolution in \code{by.season}.}
-#'  \item\code{$years}{A vector of the years and season/months corresponding to 
-#'  the resolution selected in \code{by.season} and temporal length of the input 
-#'  \code{data}}}
+#'\itemize{
+#'  \item{\code{$result}, an array with the same dimensions as the input 
+#'        \code{data}, but with the time dimension reduce from daily to monthly 
+#'        or seasonal resolution depending on the selected resolution in 
+#'        \code{by.season}.}
+#'  \item{\code{$years}, a vector of the years and season/months corresponding 
+#'        to the resolution selected in \code{by.season} and temporal length of 
+#'        the input \code{data}.}
+#'}
 #'
 #'@import multiApply   
 #'@import PCICt

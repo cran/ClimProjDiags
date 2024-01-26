@@ -1,14 +1,20 @@
 #'Daily anomalies
 #'
-#'@description This function computes daily anomalies from a vector containing the daily time series.
+#'@description This function computes daily anomalies from a vector containing 
+#'the daily time series.
 #'
 #'@param data A vector of daily data.
-#'@param jdays A vector of the corresponding day of the year. This vector must be the same length as parameter \code{data}.
-#'@param dates If \code{jdays} is not supplied, a vector of dates corresponding to the observations in \code{data} with defined calendar attributes.
+#'@param jdays A vector of the corresponding day of the year. This vector must 
+#'  be the same length as parameter \code{data}.
+#'@param dates If \code{jdays} is not supplied, a vector of dates corresponding 
+#'  to the observations in \code{data} with defined calendar attributes.
 #'@param calendar A character indicating the calendar type.
-#'@param na.rm A logical indicating whether missing values should be removed. If \code{na.rm} is FALSE an NA value in any of the arguments will cause a value of NA to be returned, otherwise (TRUE by default) NA values are ignored.
+#'@param na.rm A logical indicating whether missing values should be removed. If 
+#'  \code{na.rm} is FALSE an NA value in any of the arguments will cause a value 
+#'  of NA to be returned, otherwise (TRUE by default) NA values are ignored.
 #'
-#'@return A vector of daily anomalies of the same length as parameter \code{data}.
+#'@return A vector of daily anomalies of the same length as parameter 
+#'\code{data}.
 #'
 #'@examples
 #'# Time series in a vector example:

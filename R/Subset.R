@@ -136,7 +136,8 @@ Subset <- function(x, along, indices, drop = FALSE) {
       if (!identical(dim_names, character(0))) {
         # If there is one dim left, subset won't have dimension (but it should 
         # have one). Add it back.
-        dim(subset) <- dim(x)[dim_names]
+        subset <- array(subset, dim = length(subset))
+        names(dim(subset)) <- dim_names
       } else {  # a number left
         dim(subset) <- 1
       }

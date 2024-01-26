@@ -9,19 +9,25 @@ DailyAno(data, jdays = NULL, dates = NULL, calendar = NULL, na.rm = TRUE)
 \arguments{
 \item{data}{A vector of daily data.}
 
-\item{jdays}{A vector of the corresponding day of the year. This vector must be the same length as parameter \code{data}.}
+\item{jdays}{A vector of the corresponding day of the year. This vector must 
+be the same length as parameter \code{data}.}
 
-\item{dates}{If \code{jdays} is not supplied, a vector of dates corresponding to the observations in \code{data} with defined calendar attributes.}
+\item{dates}{If \code{jdays} is not supplied, a vector of dates corresponding 
+to the observations in \code{data} with defined calendar attributes.}
 
 \item{calendar}{A character indicating the calendar type.}
 
-\item{na.rm}{A logical indicating whether missing values should be removed. If \code{na.rm} is FALSE an NA value in any of the arguments will cause a value of NA to be returned, otherwise (TRUE by default) NA values are ignored.}
+\item{na.rm}{A logical indicating whether missing values should be removed. If 
+\code{na.rm} is FALSE an NA value in any of the arguments will cause a value 
+of NA to be returned, otherwise (TRUE by default) NA values are ignored.}
 }
 \value{
-A vector of daily anomalies of the same length as parameter \code{data}.
+A vector of daily anomalies of the same length as parameter 
+\code{data}.
 }
 \description{
-This function computes daily anomalies from a vector containing the daily time series.
+This function computes daily anomalies from a vector containing 
+the daily time series.
 }
 \examples{
 # Time series in a vector example:

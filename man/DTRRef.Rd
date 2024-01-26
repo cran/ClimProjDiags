@@ -16,33 +16,52 @@ DTRRef(
 )
 }
 \arguments{
-\item{tmax}{A numeric multidimensional array containing daily maximum temperature.}
+\item{tmax}{A numeric multidimensional array containing daily maximum 
+temperature.}
 
-\item{tmin}{A numeric multidimensional array containing daily minimum temperature.}
+\item{tmin}{A numeric multidimensional array containing daily minimum 
+temperature.}
 
-\item{by.seasons}{If TRUE (by default), the DTR is computed for each season (December-January-February, March-April-May, June-July-August and September-October-November) seperately. If FALSE is specified, the montly mean DTR is computed.}
+\item{by.seasons}{If TRUE (by default), the DTR is computed for each season 
+(December-January-February, March-April-May, June-July-August and 
+September-October-November) seperately. If FALSE is specified, the montly 
+mean DTR is computed.}
 
-\item{dates}{A vector of dates with a calendar attributes. If NULL (by default), the 'time' attributes of parameter 'tmax' and 'tmin' are considered.}
+\item{dates}{A vector of dates with a calendar attributes. If NULL (by 
+default), the 'time' attributes of parameter 'tmax' and 'tmin' are 
+considered.}
 
-\item{timedim}{An integer number indicating the position of the time dimension in the parameters \code{tmax} and \code{tmin}. If NULL (by default), the dimension called 'time' in parameter \code{tmax} and \code{tmin} is considered as time dimension.}
+\item{timedim}{An integer number indicating the position of the time dimension 
+in the parameters \code{tmax} and \code{tmin}. If NULL (by default), the 
+dimension called 'time' in parameter \code{tmax} and \code{tmin} is 
+considered as time dimension.}
 
 \item{calendar}{A character indicating the calendar type.}
 
-\item{na.rm}{A logical indicating whether missing values should be removed. If \code{na.rm} is FALSE an NA value in any of the arguments will cause a value of NA to be returned, otherwise (TRUE by default) NA values are ignored.}
+\item{na.rm}{A logical indicating whether missing values should be removed. If 
+\code{na.rm} is FALSE an NA value in any of the arguments will cause a value 
+of NA to be returned, otherwise (TRUE by default) NA values are ignored.}
 
 \item{ncores}{The number of cores to be used when computing the index.}
 }
 \value{
 A list of length 2:
 \itemize{
-\item\code{$dtr.ref} {An array with the same dimensions as the input \code{data}, but with the time dimension reduce from daily to monthly or seasonal resolution depending on the selected resolution in \code{by.season}.}
-\item\code{$season} {A vector of the season or months corresponding to the resolution selected in \code{by.season}}}
+ \item{\code{$dtr.ref}, an array with the same dimensions as the input 
+       \code{data}, but with the time dimension reduce from daily to monthly 
+       or seasonal resolution depending on the selected resolution in 
+       \code{by.season}.}
+\item{\code{$season}, a vector of the season or months corresponding to the 
+     resolution selected in \code{by.season}.}
+}
 }
 \description{
-This function computes the mean diurnal temperature range (tmax - tmin).
+This function computes the mean diurnal temperature range 
+(tmax - tmin).
 }
 \details{
-The function returns a reordered array with 'time' dimension in the first position in the \code{dtr.ref} label.
+The function returns a reordered array with 'time' dimension in the 
+ first position in the \code{dtr.ref} label.
 }
 \examples{
 ##Exmaple with synthetic data:
@@ -55,7 +74,8 @@ time <- seq.Date(as.Date("1900-01-01", format = "\%Y-\%d-\%m"),
 time <- as.POSIXct(time, tz = "CET")
 metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
                             calendar = 'noleap',
-                            units = 'days since 1970-01-01 00:00:00', prec = 'double', 
+                            units = 'days since 1970-01-01 00:00:00', 
+                            prec = 'double', 
                             dim = list(list(name ='time', unlim = FALSE))))
 attr(time, "variables") <- metadata
 attr(tmax, 'Variables')$dat1$time <- time
@@ -73,6 +93,7 @@ dim(tmax) <- c(2, 3, 365)
 tmin <- (1:(2 * 3 * 365 * 1))-1
 dim(tmin) <- c(2, 3, 365)
 
-a <- DTRRef(tmax, tmin, by.seasons = FALSE, dates = time,  timedim = 3, ncores = NULL)
+a <- DTRRef(tmax, tmin, by.seasons = FALSE, dates = time,  timedim = 3, 
+           ncores = NULL)
 str(a)
 }

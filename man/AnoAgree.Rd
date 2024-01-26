@@ -2,7 +2,8 @@
 % Please edit documentation in R/AnoAgree.R
 \name{AnoAgree}
 \alias{AnoAgree}
-\title{Percentage of anomalies which agrees with the sign of the mean anomaly for multidimensional arrays}
+\title{Percentage of anomalies which agrees with the sign of the mean anomaly for 
+multidimensional arrays}
 \usage{
 AnoAgree(ano, membersdim, na.rm = TRUE, ncores = NULL)
 }
@@ -11,15 +12,20 @@ AnoAgree(ano, membersdim, na.rm = TRUE, ncores = NULL)
 
 \item{membersdim}{The dimension in which models are stored.}
 
-\item{na.rm}{A logical indicating whether missing values should be removed. If \code{na.rm} is FALSE an NA value in any of the arguments will cause a value of NA to be returned, otherwise (TRUE by default) NA values are ignored.}
+\item{na.rm}{A logical indicating whether missing values should be removed. If 
+\code{na.rm} is FALSE an NA value in any of the arguments will cause a value 
+of NA to be returned, otherwise (TRUE by default) NA values are ignored.}
 
 \item{ncores}{The number of cores to be used when computing the agreement.}
 }
 \value{
-An array of one dimension less than the \code{ano} object, except for one dimensional arrays or vectors, for which an array of dimension 1 called 'var' is returned.
+An array of one dimension less than the \code{ano} object, except for 
+one dimensional arrays or vectors, for which an array of dimension 1 called 
+'var' is returned.
 }
 \description{
-This function computes the mean and the percentage of agreement between anomalies.
+This function computes the mean and the percentage of agreement 
+between anomalies.
 }
 \examples{
 # Example with random sample:
@@ -27,7 +33,8 @@ a <- NULL
 for(i in 1:20) { a <- c(a, rnorm(6)) }
 dim(a) <- c(lat = 2, lon = 3, var = 4, mod = 5)
 
-agree <- AnoAgree(ano = a, membersdim = which(names(dim(a)) == 'mod'), na.rm = TRUE, ncores = NULL)
+agree <- AnoAgree(ano = a, membersdim = which(names(dim(a)) == 'mod'), 
+                 na.rm = TRUE, ncores = NULL)
 print(agree)
 
 a <- rnorm(6)

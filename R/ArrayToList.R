@@ -1,11 +1,18 @@
 #' Split an array into list by a given array dimension
 #'
-#'@description This function splits an array into a list as required by PlotLayout function from package "s2dv" when parameter 'special_args' is used. The function ArrayToList allows to add names to the elements of the list in two different levels, the 'list' or the 'sublist'.
+#'@description This function splits an array into a list as required by 
+#'PlotLayout function from package "s2dv" when parameter 'special_args' is used. 
+#'The function ArrayToList allows to add names to the elements of the list in 
+#'two different levels, the 'list' or the 'sublist'.
 #'
 #'@param data A multidimensional array.
-#'@param dim A character string indicating the name of the dimension to split or an integer indicating the position of the dimension.
-#'@param level A string character 'list' or 'sublist' indicating if it should be a list or a sublist. By default it creates a list.
-#'@param names A vector of character strings to name the list (if it is a single string, it would be reused) or a single character string to name the elements in the sublist. 
+#'@param dim A character string indicating the name of the dimension to split or 
+#'  an integer indicating the position of the dimension.
+#'@param level A string character 'list' or 'sublist' indicating if it should be 
+#'  a list or a sublist. By default it creates a list.
+#'@param names A vector of character strings to name the list (if it is a single 
+#'  string, it would be reused) or a single character string to name the 
+#'  elements in the sublist. 
 #'
 #'@return A list of arrays of the length of the dimension set in parameter 'dim'.
 #'

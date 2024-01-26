@@ -1,12 +1,16 @@
 #'Obtain the index of positions for a region in longitudes
 #'
-#'@description This auxiliary function returns the index of position of a region of longitudes in a given vector of longitudes.
+#'@description This auxiliary function returns the index of position of a region 
+#'of longitudes in a given vector of longitudes.
 #'
 #'@param lon vector of longitudes values.
-#'@param lonmin a numeric value indicating the minimum longitude of the region (understand as the left marging of the region).
-#'@param lonmax a numeric value indicating the maximum longitude of the region (understand as the right mariging of the region).
+#'@param lonmin a numeric value indicating the minimum longitude of the region 
+#'  (understand as the left marging of the region).
+#'@param lonmax a numeric value indicating the maximum longitude of the region 
+#'  (understand as the right mariging of the region).
 #'
-#'@return the index of positions of all values inside the region in the vector lon.
+#'@return the index of positions of all values inside the region in the vector 
+#'lon.
 #'
 #'@examples
 #'

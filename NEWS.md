@@ -1,3 +1,6 @@
+# 0.3.3 (Release date: 2024-01-25)
+- Bugfix in Subset() for drop = T, didn't have correct given output dimension therefore returned error. It happened when the output dimension is 1 and the length is > 1.
+
 # 0.3.2 (Release date: 2023-06-01)
 - Remove climdex.pcic dependency
 

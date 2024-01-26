@@ -1,7 +1,7 @@
 #'Select spatial region from multidimensional arrays
 #'
-#'@description Subset a spatial region from spatial data giving a vector with
-#'  the maximum and minimum of latitudes and longitudes of the selected region.
+#'@description Subset a spatial region from spatial data giving a vector with 
+#'the maximum and minimum of latitudes and longitudes of the selected region.
 #'
 #'@param data An array with minimum two dimensions of latitude and longitude.
 #'@param lon Numeric vector of longitude locations of the cell centers of the
@@ -18,16 +18,17 @@
 #'
 #'@return A list of length 4:
 #'\itemize{
-#'  \item\code{$data}{
-#'    An array with the same dimensions as the input \code{data} array, but with
-#'    spatial dimension reduced to the selected \code{region}}
-#'  \item\code{$lat}{A vector with the new corresponding latitudes for the 
-#'    selected \code{region}}
-#'  \item\code{$lon}{A vector with the new corresponding longitudes for the 
-#'    selected \code{region}}
-#'  \item\code{$mask}{If parameter \code{mask} is supplied, an array with 
-#'    reduced length of the dimensions to the selected \code{region}. Otherwise, 
-#'    a NULL element is returned.}}
+#'  \item{\code{$data}, an array with the same dimensions as the input 
+#'        \code{data} array, but with spatial dimension reduced to the selected 
+#'        \code{region}.}
+#'  \item{\code{$lat}, a vector with the new corresponding latitudes for the 
+#'        selected \code{region}.}
+#'  \item{\code{$lon}, a vector with the new corresponding longitudes for the 
+#'        selected \code{region}.}
+#'  \item{\code{$mask}, if parameter \code{mask} is supplied, an array with 
+#'        reduced length of the dimensions to the selected \code{region}. 
+#'        Otherwise, a NULL element is returned.}
+#'}
 #'
 #'@examples 
 #'# Example with synthetic data:

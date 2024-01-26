@@ -1,17 +1,29 @@
 #'Selects a season from daily data for multidimensional arrays
 #'
-#'@description This function selects the daily data corresponding to the specified season.
+#'@description This function selects the daily data corresponding to the 
+#'specified season.
 #'
 #'@param data A numeric multidimensional array containing daily data.
-#'@param season A charcater string indicating the season by the three months initials in capitals: 'DJF' for winter (summer), 'MAM' spring (autumn), 'JJA' for summer (winter) or 'SON' for autumn (spring) in the northern (southern) hemisphere.
-#'@param dates A vector of dates with a calendar attributes. If NULL (by default), the 'time' attributes of parameter 'data' are considered.
-#'@param timedim An integer number indicating the position of the time dimension in the parameter \code{data}. If NULL (by default), the dimension called 'time' in parameter \code{data}.
+#'@param season A charcater string indicating the season by the three months 
+#'  initials in capitals: 'DJF' for winter (summer), 'MAM' spring (autumn), 
+#'  'JJA' for summer (winter) or 'SON' for autumn (spring) in the northern 
+#'  (southern) hemisphere.
+#'@param dates A vector of dates with a calendar attributes. If NULL (by 
+#'  default), the 'time' attributes of parameter 'data' are considered.
+#'@param timedim An integer number indicating the position of the time dimension 
+#'  in the parameter \code{data}. If NULL (by default), the dimension called 
+#'  'time' in parameter \code{data}.
 #'@param calendar A character indicating the calendar type.
 #'
 #'@return A list of length 2:
 #'\itemize{
-#'\item\code{$data} {A vector or array containing the daily values for the selected season, with the same dimensions as \code{data} input but the 'time' dimension reduce to the number of days corresponding to the selected season.}
-#'\item\code{$dates} {A vector of dates reduce to the number of days corresponding to the selected season.}}
+#'  \item{\code{$data}, a vector or array containing the daily values for the 
+#'        selected season, with the same dimensions as \code{data} input but the 
+#'        'time' dimension reduce to the number of days corresponding to the 
+#'        selected season.}
+#'  \item{\code{$dates}, a vector of dates reduce to the number of days 
+#'        corresponding to the selected season.}
+#'}
 #'
 #'@import PCICt
 #'@examples
@@ -22,7 +34,8 @@
 #'time <- as.POSIXct(time, tz = "CET")
 #'metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
 #'                             calendar = 'noleap',
-#'                             units = 'days since 1970-01-01 00:00:00', prec = 'double', 
+#'                             units = 'days since 1970-01-01 00:00:00', 
+#'                             prec = 'double', 
 #'                             dim = list(list(name ='time', unlim = FALSE))))
 #'attr(time, "variables") <- metadata
 #'attr(data, 'Variables')$dat1$time <- time

@@ -9,15 +9,19 @@ Lon2Index(lon, lonmin, lonmax)
 \arguments{
 \item{lon}{vector of longitudes values.}
 
-\item{lonmin}{a numeric value indicating the minimum longitude of the region (understand as the left marging of the region).}
+\item{lonmin}{a numeric value indicating the minimum longitude of the region 
+(understand as the left marging of the region).}
 
-\item{lonmax}{a numeric value indicating the maximum longitude of the region (understand as the right mariging of the region).}
+\item{lonmax}{a numeric value indicating the maximum longitude of the region 
+(understand as the right mariging of the region).}
 }
 \value{
-the index of positions of all values inside the region in the vector lon.
+the index of positions of all values inside the region in the vector 
+lon.
 }
 \description{
-This auxiliary function returns the index of position of a region of longitudes in a given vector of longitudes.
+This auxiliary function returns the index of position of a region 
+of longitudes in a given vector of longitudes.
 }
 \examples{
 

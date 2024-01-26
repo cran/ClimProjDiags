@@ -1,16 +1,21 @@
 #'Daily thresholds based on quantiles for n-dimensional arrays
 #'
-#'This function computes the threshold based on a quantile value for each day of the year of the daily data input.
+#'This function computes the threshold based on a quantile value for each day of 
+#'the year of the daily data input.
 #'
 #'@param data A numeric n-dimensional array containing daily data.
-#'@param dates A vector of dates with a calendar attributes. If NULL (by default), the 'time' attributes of parameter 'data' is considered.
+#'@param dates A vector of dates with a calendar attributes. If NULL (by 
+#'  default), the 'time' attributes of parameter 'data' is considered.
 #'@param calendar A character indicating the calendar type.
 #'@param base.range The years used for computing the threshold.
-#'@param qtiles Numeric vector with values between 0 and 1 indicating the quantiles to be computed.
+#'@param qtiles Numeric vector with values between 0 and 1 indicating the 
+#'  quantiles to be computed.
 #'@param ncores The number of cores to be used when computing the threshold.
-#'@param na.rm A logical value. If TRUE, any NA and NaN's are removed before the quantiles are computed (default as FALSE).
+#'@param na.rm A logical value. If TRUE, any NA and NaN's are removed before the 
+#'  quantiles are computed (default as FALSE).
 #'
-#'@return An array with similar dimensions as the \code{data} input, but without 'time' dimension, and a new 'jdays' dimension.
+#'@return An array with similar dimensions as the \code{data} input, but without 
+#''time' dimension, and a new 'jdays' dimension.
 #'
 #'@import multiApply
 #'@import PCICt
@@ -19,14 +24,17 @@
 #'##Example synthetic data:
 #'data <- 1:(2 * 3 * 372 * 1)
 #'dim(data) <- c(time = 372, lon = 2, lat = 3, model = 1)
-#'time <- as.POSIXct(paste(sort(rep(1900:1911, 31)), 1, 1:31, sep = "-"), tz = "CET")
-#'metadata <- list(time = list(standard_name = 'time', long_name = 'time',  calendar = 'noleap', 
-#'                             units = 'days since 1970-01-01 00:00:00', prec = 'double', 
-#'                             dim = list(list(name = 'time', unlim = FALSE))))
+#'time <- as.POSIXct(paste(sort(rep(1900:1911, 31)), 1, 1:31, sep = "-"), 
+#'                   tz = "CET")
+#'metadata <- list(time = list(standard_name = 'time', long_name = 'time',  
+#'                 calendar = 'noleap', 
+#'                 units = 'days since 1970-01-01 00:00:00', prec = 'double', 
+#'                 dim = list(list(name = 'time', unlim = FALSE))))
 #'attr(time, "variables") <- metadata
 #'attr(data, 'Variables')$dat1$time <- time
 #'
-#'a <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL)
+#'a <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, 
+#'               ncores = NULL)
 #'str(a)
 #'
 #'@export

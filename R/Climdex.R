@@ -23,10 +23,10 @@
 #'
 #'@return A list of length 2:
 #'\itemize{
-#'  \item\code{$result} {An array with the same dimensions as the input array, 
-#'  except for the temporal dimension which is renamed to 'year', moved to the 
-#'  first dimension position and reduce to annual resolution.}
-#'  \item\code{$years}  {A vector of the corresponding years.}
+#'  \item{\code{$result}, an array with the same dimensions as the input array, 
+#'        except for the temporal dimension which is renamed to 'year', moved 
+#'        to the first dimension position and reduce to annual resolution.}
+#'  \item{\code{$years}, a vector of the corresponding years.}
 #'}
 #'
 #'@import multiApply

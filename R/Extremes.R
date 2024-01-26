@@ -22,10 +22,10 @@
 #'
 #'@return A list of length 2:
 #'\itemize{
-#'  \item\code{$output1}{An array with the same dimensions as the original 
-#'  \code{data}, except the time dimension which is reduced to annual resolution 
-#'  given a timeseries of maximum spell lengths for each year.}
-#'  \item\code{$year}{A vector indicating the corresponding years.}
+#'  \item{\code{$output1}, an array with the same dimensions as the original 
+#'        \code{data}, except the time dimension which is reduced to annual 
+#'        resolution given a timeseries of maximum spell lengths for each year.}
+#'  \item{\code{$year}, a vector indicating the corresponding years.}
 #'}
 #'@details This routine compares data to the thresholds using the given 
 #'operator, generating a series of TRUE or FALSE values; these values are then 
@@ -45,11 +45,13 @@
 #'time <- as.POSIXct(paste(sort(rep(1902:1911, 31)), 1, 1:31, sep = "-"), tz = "CET")
 #'metadata <- list(time = list(standard_name = 'time', long_name = 'time', 
 #'                             calendar = 'noleap', 
-#'                             units = 'days since 1970-01-01 00:00:00', prec = 'double', 
+#'                             units = 'days since 1970-01-01 00:00:00', 
+#'                             prec = 'double', 
 #'                             dim = list(list(name = 'time', unlim = FALSE))))
 #'attr(time, "variables") <- metadata
 #'attr(data, 'Variables')$dat1$time <- time
-#'threshold <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, ncores = NULL)
+#'threshold <- Threshold(data, dates = NULL, base.range = NULL, qtiles = 0.9, 
+#'                       ncores = NULL)
 #'res <- Extremes(data, threshold = threshold, op = ">", min.length = 6, 
 #'                spells.can.span.years = TRUE, max.missing.days = 5, 
 #'                ncores = NULL)

@@ -24,7 +24,8 @@ A list of arrays of the length of the dimension set in parameter 'dim'.
 }
 \description{
 This function splits an array into a list as required by 
-PlotLayout function from package "s2dv" when parameter 'special_args' is used. 
+PlotLayout function from package "s2dv" when parameter 'special_args' is used.
+See: N. Manubens et al. (2018) <<doi:10.1016/j.envsoft.2018.01.018>.
 The function ArrayToList allows to add names to the elements of the list in 
 two different levels, the 'list' or the 'sublist'.
 }
@@ -41,7 +42,4 @@ class(datalist)
 class(datalist[[1]])
 class(datalist[[1]][[1]])
 str(datalist)
-}
-\seealso{
-\link[s2dv]{PlotLayout}
 }

@@ -30,7 +30,6 @@
 #'}
 #'
 #'@import multiApply
-#'@import PCICt
 #'@examples 
 #'##Example synthetic data:
 #'data <- 1:(2 * 3 * 372 * 1)

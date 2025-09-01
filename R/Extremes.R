@@ -37,7 +37,6 @@
 #'the data is reached. The default for fclimdex is FALSE.
 #'
 #'@import multiApply
-#'@import PCICt
 #'@examples
 #'##Example synthetic data:
 #'data <- 1:(2 * 3 * 310 * 1)

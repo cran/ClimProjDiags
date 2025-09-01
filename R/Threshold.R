@@ -18,7 +18,6 @@
 #''time' dimension, and a new 'jdays' dimension.
 #'
 #'@import multiApply
-#'@import PCICt
 #'@importFrom stats quantile
 #'@examples
 #'##Example synthetic data:

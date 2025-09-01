@@ -34,7 +34,6 @@
 #'}
 #'
 #'@import multiApply   
-#'@import PCICt
 #'@examples
 #'##Example synthetic data:
 #'data <- 1:(2 * 3 * 31 * 5)

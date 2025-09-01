@@ -25,3 +25,7 @@ The main functionalities are presented in four different vignettes with step by 
 - [Diurnal temperature variation indicator](https://earth.bsc.es/gitlab/es/ClimProjDiags/blob/master/vignettes/diurnaltemp.Rmd): compares the future projection of diurnal temperature variations with a reference period.
 
 
+### How to contribute?
+
+Information on questions, contributions and bug reports can be found in  [**CONTRIBUTING.md**](https://earth.bsc.es/gitlab/es/ClimProjDiags/blob/master/CONTRIBUTING.md).
+

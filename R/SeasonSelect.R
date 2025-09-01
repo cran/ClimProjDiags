@@ -25,7 +25,6 @@
 #'        corresponding to the selected season.}
 #'}
 #'
-#'@import PCICt
 #'@examples
 #'## Example with synthetic data:
 #'data <- 1:(2 * 3 * (366 + 365) * 2)

@@ -1,6 +1,6 @@
 Package: ClimProjDiags
 Title: Set of Tools to Compute Various Climate Indices
-Version: 0.3.4
+Version: 0.3.5
 Authors@R: c(
     person("BSC-CNS", role = c("aut", "cph")),
     person("Nuria", "Perez-Zanon", , "nuria.perez@bsc.es", role = c("aut"), comment = c(ORCID = "0000-0001-8568-3071")),
@@ -26,15 +26,14 @@ Depends: R (>= 3.2.0)
 Imports: graphics, methods, multiApply (>= 2.0.0), stats
 Suggests: knitr, testthat, markdown, rmarkdown
 License: GPL-3
-URL: https://earth.bsc.es/gitlab/es/ClimProjDiags
-BugReports: https://earth.bsc.es/gitlab/es/ClimProjDiags/-/issues
+URL: https://gitlab.earth.bsc.es/es/ClimProjDiags
+BugReports: https://gitlab.earth.bsc.es/es/ClimProjDiags/-/issues
 Encoding: UTF-8
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: yes
-SystemRequirements: C++11
-Packaged: 2025-09-01 08:36:49 UTC; vagudets
+Packaged: 2026-01-07 10:54:32 UTC; vagudets
 Author: BSC-CNS [aut, cph],
   Nuria Perez-Zanon [aut] (ORCID:
     <https://orcid.org/0000-0001-8568-3071>),
@@ -49,4 +48,4 @@ Author: BSC-CNS [aut, cph],
   James Hiebert [ctb]
 Maintainer: Victòria Agudetse <victoria.agudetse@bsc.es>
 Repository: CRAN
-Date/Publication: 2025-09-01 09:10:19 UTC
+Date/Publication: 2026-01-08 06:12:13 UTC

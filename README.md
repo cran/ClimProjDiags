@@ -19,13 +19,13 @@ library(ClimProjDiags)
 
 The main functionalities are presented in four different vignettes with step by step examples:
 
-- [Multi-model agreement](https://earth.bsc.es/gitlab/es/ClimProjDiags/blob/master/vignettes/anomaly_agreement.Rmd): computes a projected climate anomaly and provides the percentage of models which agree on the sign of the anomaly.
-- [Extreme Indices](https://earth.bsc.es/gitlab/es/ClimProjDiags/blob/master/vignettes/extreme_indices.Rmd):  computes different extreme indices and combine these indices to evalutae how extreme events are projected to change in the future climate.
-- [Heat and Cold Wave Duration](https://earth.bsc.es/gitlab/es/ClimProjDiags/blob/master/vignettes/heatcoldwaves.Rmd): computes change in heat wave frequency between present and future conditions.
-- [Diurnal temperature variation indicator](https://earth.bsc.es/gitlab/es/ClimProjDiags/blob/master/vignettes/diurnaltemp.Rmd): compares the future projection of diurnal temperature variations with a reference period.
+- [Multi-model agreement](https://gitlab.earth.bsc.es/es/ClimProjDiags/blob/master/vignettes/anomaly_agreement.Rmd): computes a projected climate anomaly and provides the percentage of models which agree on the sign of the anomaly.
+- [Extreme Indices](https://gitlab.earth.bsc.es/es/ClimProjDiags/blob/master/vignettes/extreme_indices.Rmd):  computes different extreme indices and combine these indices to evalutae how extreme events are projected to change in the future climate.
+- [Heat and Cold Wave Duration](https://gitlab.earth.bsc.es/es/ClimProjDiags/blob/master/vignettes/heatcoldwaves.Rmd): computes change in heat wave frequency between present and future conditions.
+- [Diurnal temperature variation indicator](https://gitlab.earth.bsc.es/es/ClimProjDiags/blob/master/vignettes/diurnaltemp.Rmd): compares the future projection of diurnal temperature variations with a reference period.
 
 
 ### How to contribute?
 
-Information on questions, contributions and bug reports can be found in  [**CONTRIBUTING.md**](https://earth.bsc.es/gitlab/es/ClimProjDiags/blob/master/CONTRIBUTING.md).
+Information on questions, contributions and bug reports can be found in  [**CONTRIBUTING.md**](https://gitlab.earth.bsc.es/es/ClimProjDiags/blob/master/CONTRIBUTING.md).
 

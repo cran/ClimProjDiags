@@ -1,3 +1,10 @@
+# 0.3.5 (Release date: 2026-01-07)
+- Remove C++11 system requirement to fix CRAN warning
+- Update GitLab links
+
+# 0.3.4 (Release date: 2025-09-01)
+- Remove dependency on package archived package PCICt
+
 # 0.3.3 (Release date: 2024-01-25)
 - Bugfix in Subset() for drop = T, didn't have correct given output dimension therefore returned error. It happened when the output dimension is 1 and the length is > 1.
 

@@ -1,6 +1,6 @@
 Package: ClimProjDiags
 Title: Set of Tools to Compute Various Climate Indices
-Version: 0.3.5
+Version: 0.3.6
 Authors@R: c(
     person("BSC-CNS", role = c("aut", "cph")),
     person("Nuria", "Perez-Zanon", , "nuria.perez@bsc.es", role = c("aut"), comment = c(ORCID = "0000-0001-8568-3071")),
@@ -33,7 +33,7 @@ RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: yes
-Packaged: 2026-01-07 10:54:32 UTC; vagudets
+Packaged: 2026-07-29 10:04:08 UTC; vagudets
 Author: BSC-CNS [aut, cph],
   Nuria Perez-Zanon [aut] (ORCID:
     <https://orcid.org/0000-0001-8568-3071>),
@@ -48,4 +48,4 @@ Author: BSC-CNS [aut, cph],
   James Hiebert [ctb]
 Maintainer: Victòria Agudetse <victoria.agudetse@bsc.es>
 Repository: CRAN
-Date/Publication: 2026-01-08 06:12:13 UTC
+Date/Publication: 2026-07-30 05:10:27 UTC

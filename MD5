@@ -1,6 +1,6 @@
-7dc2cd7872bff8f4611e5f5b765e10d1 *DESCRIPTION
+378c28faba86adf3a931c83f3b458a76 *DESCRIPTION
 39116ad60f357cfe6de547534148f3dc *NAMESPACE
-9bb9b467e0d8c289a24c16b087e3ee77 *NEWS.md
+1c3775db6de5866a2c4cdcaa6d01be5a *NEWS.md
 46696b1beb205a6cdf205be30c31f10a *R/AnoAgree.R
 5cdf669f66d4116a66068c09b36dbd53 *R/ArrayToList.R
 64c354a265cd6b03139dd0c415e25804 *R/Climdex.R
@@ -23,13 +23,13 @@ ba9f12b9221a8642c58a5802e6170432 *R/WaveDuration.R
 051c8aa2aaddb8552bb917c04a50e09e *README.md
 c582ecde9b7ebeb44e2d13876b0bdd28 *build/vignette.rds
 50e54825aa241f93f9fa82b6351be8e7 *inst/doc/anomaly_agreement.Rmd
-24fbc1fe8325a699a62b903573fc6449 *inst/doc/anomaly_agreement.html
+b2c8a16284c5c08f6a6f846debb0c437 *inst/doc/anomaly_agreement.html
 27cd297cef358e1780cf8cd6c43e8524 *inst/doc/diurnaltemp.Rmd
-85240e5b43f6bdcfdc18f413006f69b6 *inst/doc/diurnaltemp.html
+759de69d51fec3b974ce45d936149458 *inst/doc/diurnaltemp.html
 518add664deef11e10680b27db65076c *inst/doc/extreme_indices.Rmd
-5c1fe2c5495b8cf7d3d5f94aa911f1eb *inst/doc/extreme_indices.html
+9bc01103101299e117f63a0512f0baa6 *inst/doc/extreme_indices.html
 569714538725bb365d8be1423733756c *inst/doc/heatcoldwaves.Rmd
-5334373023771103fcb7882c5171529b *inst/doc/heatcoldwaves.html
+d0892c567f4e003ceb78e516da8bb9c3 *inst/doc/heatcoldwaves.html
 c56412d0f294c2ace54bd3d4ba3b13a4 *man/AnoAgree.Rd
 3376598b0b39299a52cc9798e01423e5 *man/ArrayToList.Rd
 eb55bdf1bd1ffcea85408c2d6d30582a *man/Climdex.Rd
@@ -49,7 +49,7 @@ f681489f50bed6dd12beddbfa9b77bd3 *man/ShiftLon.Rd
 313d9b79783b79b8b23e58cc0a2cf3f2 *man/WeightedMean.Rd
 a86e8b2750c1b746bb6a262bd1f09c01 *man/as.PCICt.Rd
 14f9489688647ca487b82f73a79ed793 *src/PCICt_init.c
-3d71418e88d4c11167904977fe7f71fb *src/datetime_360.c
+0a48818b234eee6ce18d8fbc0cbcf96d *src/datetime_360.c
 d85b13e7c6eaaf874ad82a8ad12729a5 *src/strptime_360.h
 b76b0d195a5de1835027efbf7da290a5 *vignettes/Figures/CombinedIndices.png
 89ed0973a1c52b16acd2fb0176a80964 *vignettes/Figures/SpatialComparisonDTR.png

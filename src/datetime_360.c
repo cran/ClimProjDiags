@@ -702,7 +702,7 @@ SEXP do_formatPOSIXlt_360(SEXP data, SEXP format)
                    gives the seconds truncated to 0 <= n <= 6 decimal
                    places
                  */
-		char* p = strstr(q, "%OS");
+		const char* p = strstr(q, "%OS");
 		if(p) {
 		    /* FIXME some of this should be outside the loop */
 		    int ns, nused = 4;

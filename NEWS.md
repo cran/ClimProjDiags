@@ -1,3 +1,6 @@
+# 0.3.6 (Release date: 2026-07-31)
+- Fix variable initialization in datetime_360.c to comply with C23 standard
+
 # 0.3.5 (Release date: 2026-01-07)
 - Remove C++11 system requirement to fix CRAN warning
 - Update GitLab links
